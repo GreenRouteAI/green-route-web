@@ -2,8 +2,10 @@ import { useList, useNavigation } from "@refinedev/core";
 
 import { GoogleMap, MapMarker } from "../../../components";
 import { IOrder } from "../../../interfaces";
+import { useGetGeoLocation } from "../../../hooks";
 
 export const DeliveryMap: React.FC = () => {
+  const { latitude, longitude } = useGetGeoLocation();
   const { data: orderData } = useList<IOrder>({
     resource: "orders",
     config: {
@@ -22,46 +24,13 @@ export const DeliveryMap: React.FC = () => {
 
   const defaultProps = {
     center: {
-      lat: 40.73061,
-      lng: -73.935242,
+      lat: latitude,
+      lng: longitude,
     },
     zoom: 13,
   };
 
   const { show } = useNavigation();
 
-  return (
-    <GoogleMap mapProps={{ ...defaultProps }}>
-      {orderData?.data.map((order) => {
-        return (
-          <MapMarker
-            key={order.id}
-            onClick={() => show("orders", order.id)}
-            icon={{
-              url: "/images/marker-courier.svg",
-            }}
-            position={{
-              lat: Number(order.adress.coordinate[0]),
-              lng: Number(order.adress.coordinate[1]),
-            }}
-          />
-        );
-      })}
-      {orderData?.data.map((order) => {
-        return (
-          <MapMarker
-            key={order.id}
-            onClick={() => show("orders", order.id)}
-            icon={{
-              url: "/images/marker-location.svg",
-            }}
-            position={{
-              lat: Number(order.store.address.coordinate[0]),
-              lng: Number(order.store.address.coordinate[1]),
-            }}
-          />
-        );
-      })}
-    </GoogleMap>
-  );
+  return <GoogleMap mapProps={{ ...defaultProps }}></GoogleMap>;
 };
