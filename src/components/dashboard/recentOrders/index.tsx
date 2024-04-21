@@ -13,7 +13,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import { IOrder } from "../../../interfaces";
-import { getUniqueListWithCount } from "../../../utils";
+import { getUniqueListWithCount } from "../../../utils/unique-list-with-count";
 
 export const RecentOrders: React.FC = () => {
   const t = useTranslate();
@@ -172,7 +172,7 @@ export const RecentOrders: React.FC = () => {
         ],
       },
     ],
-    [t, mutate],
+    [t, mutate]
   );
 
   return (

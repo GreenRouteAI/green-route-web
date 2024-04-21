@@ -5,7 +5,7 @@ import {
   LatLng,
   getAddressWithLatLng,
   getLatLngWithAddress,
-} from "../../../utils";
+} from "../../../utils/geocoding";
 import { IStore } from "../../../interfaces";
 import { useEffect, useState } from "react";
 import { HttpError } from "@refinedev/core";
@@ -57,7 +57,7 @@ export const useStoreForm = (props: Props) => {
   // to minimize the number of requests, we are using debounced values
   const [debouncedAdressValue, setDebouncedAdressValue] = useDebounceValue(
     form?.getValues("address.text"),
-    500,
+    500
   );
   // get lat and lng with address
   useEffect(() => {

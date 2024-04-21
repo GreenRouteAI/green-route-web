@@ -1,60 +1,51 @@
-import { Authenticated, GitHubBanner, Refine } from "@refinedev/core";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import Dashboard from "@mui/icons-material/Dashboard";
+import FastfoodOutlinedIcon from "@mui/icons-material/FastfoodOutlined";
+import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
+import MopedOutlined from "@mui/icons-material/MopedOutlined";
+import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import GlobalStyles from "@mui/material/GlobalStyles";
+import { Authenticated, Refine } from "@refinedev/core";
 import { KBarProvider } from "@refinedev/kbar";
 import {
   ErrorComponent,
-  useNotificationProvider,
-  ThemedLayoutV2,
   RefineSnackbarProvider,
+  ThemedLayoutV2,
+  useNotificationProvider,
 } from "@refinedev/mui";
-import GlobalStyles from "@mui/material/GlobalStyles";
-import CssBaseline from "@mui/material/CssBaseline";
-import dataProvider from "@refinedev/simple-rest";
 import routerProvider, {
   CatchAllNavigate,
+  DocumentTitleHandler,
   NavigateToResource,
   UnsavedChangesNotifier,
-  DocumentTitleHandler,
 } from "@refinedev/react-router-v6";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import dataProvider from "@refinedev/simple-rest";
 import { useTranslation } from "react-i18next";
-import MopedOutlined from "@mui/icons-material/MopedOutlined";
-import Dashboard from "@mui/icons-material/Dashboard";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import FastfoodOutlinedIcon from "@mui/icons-material/FastfoodOutlined";
-import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
-import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
-import Box from "@mui/material/Box";
-import { authProvider } from "./authProvider";
+import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { Header, Title } from "./components";
+import { ColorModeContextProvider } from "./contexts";
+import { AuthPage } from "./pages/auth";
+import { CategoryList } from "./pages/categories";
+import { CourierCreate, CourierEdit, CourierList } from "./pages/couriers";
+import { CustomerList, CustomerShow } from "./pages/customers";
 import { DashboardPage } from "./pages/dashboard";
 import { OrderList, OrderShow } from "./pages/orders";
-import { CustomerShow, CustomerList } from "./pages/customers";
-import { CourierList, CourierCreate, CourierEdit } from "./pages/couriers";
-import { AuthPage } from "./pages/auth";
-import { StoreList, StoreEdit, StoreCreate } from "./pages/stores";
-import { ProductEdit, ProductList, ProductCreate } from "./pages/products";
-import { CategoryList } from "./pages/categories";
-import { ColorModeContextProvider } from "./contexts";
-import { Header, Title } from "./components";
-import { useAutoLoginForDemo } from "./hooks";
+import { ProductCreate, ProductEdit, ProductList } from "./pages/products";
+import { StoreCreate, StoreEdit, StoreList } from "./pages/stores";
+import { authProvider } from "./providers";
 
 const API_URL = "https://api.finefoods.refine.dev";
 
 const App: React.FC = () => {
-  // This hook is used to automatically login the user.
-  // We use this hook to skip the login page and demonstrate the application more quickly.
-  const { loading } = useAutoLoginForDemo();
-
   const { t, i18n } = useTranslation();
   const i18nProvider = {
     translate: (key: string, params: object) => t(key, params),
     changeLocale: (lang: string) => i18n.changeLanguage(lang),
     getLocale: () => i18n.language,
   };
-
-  if (loading) {
-    return null;
-  }
 
   return (
     <BrowserRouter>

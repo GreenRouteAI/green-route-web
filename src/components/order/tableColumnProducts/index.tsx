@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import { CustomTooltip } from "../../customTooltip";
 import { IOrder } from "../../../interfaces";
-import { getUniqueListWithCount } from "../../../utils";
+import { getUniqueListWithCount } from "../../../utils/unique-list-with-count";
 
 type Props = {
   order: IOrder;

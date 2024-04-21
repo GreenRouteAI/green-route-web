@@ -3,7 +3,7 @@ import _debounce from "lodash/debounce";
 import Box from "@mui/material/Box";
 import { GoogleMap, MapMarker } from "../../map";
 import { IStore } from "../../../interfaces";
-import { convertLatLng } from "../../../utils";
+import { convertLatLng } from "../../../utils/geocoding";
 
 type Props = {
   store?: IStore;

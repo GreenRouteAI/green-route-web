@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import { IOrder, IProduct } from "../../../interfaces";
-import { getUniqueListWithCount } from "../../../utils";
+import { getUniqueListWithCount } from "../../../utils/unique-list-with-count";
 
 type Props = {
   order?: IOrder;
@@ -96,7 +96,7 @@ export const OrderProducts = ({ order }: Props) => {
         },
       },
     ],
-    [t],
+    [t]
   );
 
   return (
@@ -126,7 +126,7 @@ export const OrderProducts = ({ order }: Props) => {
                   paddingRight="8px"
                   value={uniqueProducts.reduce(
                     (acc, product) => acc + product.count * product.price,
-                    0,
+                    0
                   )}
                   options={{
                     style: "currency",

@@ -22,8 +22,8 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import FormLabel from "@mui/material/FormLabel";
 import { Drawer, DrawerHeader, ProductImageUpload } from "../../../components";
-import { useImageUpload } from "../../../utils";
 import { ICategory, IFile, IProduct, Nullable } from "../../../interfaces";
+import { useImageUpload } from "../../../utils/use-image-upload";
 
 type Props = {
   action: "create" | "edit";
@@ -87,7 +87,7 @@ export const ProductDrawerForm = (props: Props) => {
   });
 
   const imageUploadOnChangeHandler = async (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const target = event.target;
     const file: File = (target.files as FileList)[0];
@@ -267,7 +267,7 @@ export const ProductDrawerForm = (props: Props) => {
                     getOptionLabel={(item) => {
                       return (
                         autocompleteProps?.options?.find(
-                          (p) => p?.id?.toString() === item?.id?.toString(),
+                          (p) => p?.id?.toString() === item?.id?.toString()
                         )?.title ?? ""
                       );
                     }}
