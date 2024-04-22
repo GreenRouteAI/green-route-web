@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { cache } from '../utils';
-import { mapProvider } from '../providers/maps-provider';
+import { cache, getCached } from '../utils';
+import { mapProvider } from '../providers/map-provider';
 
 export const useGetGeoLocation = () => {
   const [location, setLocation] = useState({
@@ -13,9 +13,16 @@ export const useGetGeoLocation = () => {
     try {
       navigator.geolocation.getCurrentPosition(async p => {
         const { latitude, longitude } = p.coords;
-        const name = await mapProvider.getLocationNameByCoordinates({ latitude, longitude });
-        cache.coordinates({ latitude, longitude, name });
-        setLocation({ latitude, longitude, name });
+
+        const data = getCached.coordinates();
+
+        if (!data || data.latitude !== latitude || data.longitude !== longitude) {
+          const name = await mapProvider.getLocationNameByCoordinates({ latitude, longitude });
+          cache.coordinates({ latitude, longitude, name });
+          setLocation({ latitude, longitude, name });
+          return () => {};
+        }
+        setLocation(prev => ({ latitude, longitude, name: prev.name }));
       });
     } catch {}
   }, []);

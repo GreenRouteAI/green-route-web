@@ -4,12 +4,11 @@ import { Refine } from '@refinedev/core';
 import { KBarProvider } from '@refinedev/kbar';
 import { RefineSnackbarProvider, useNotificationProvider } from '@refinedev/mui';
 import routerProvider, { DocumentTitleHandler, UnsavedChangesNotifier } from '@refinedev/react-router-v6';
-import dataProvider from '@refinedev/simple-rest';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 import { appResources, AppRoute } from './app';
 import { ColorModeContextProvider } from './contexts';
-import { authProvider } from './providers';
+import { authProvider, dataProvider } from './providers';
 
 const API_URL = 'https://api.finefoods.refine.dev';
 
@@ -30,7 +29,7 @@ const App: React.FC = () => {
           <RefineSnackbarProvider>
             <Refine
               routerProvider={routerProvider}
-              dataProvider={dataProvider(API_URL)}
+              dataProvider={dataProvider}
               authProvider={authProvider}
               i18nProvider={i18nProvider}
               options={{
