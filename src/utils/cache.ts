@@ -1,7 +1,9 @@
+import { Coordinate } from "../interfaces";
 import { User } from "../providers/gen";
 
 const TOKEN = "access-token";
 const USER = "user";
+const COORDINATES = "coordinates";
 
 const getItemName = (partName: string) => `green-app-${partName}`;
 
@@ -11,7 +13,7 @@ const setItem = (key: string, value: string) => {
 
 const getItem = (key: string) => localStorage.getItem(getItemName(key));
 
-const remoteItem = (key: string) => {
+const removeItem = (key: string) => {
   localStorage.removeItem(getItemName(key));
 };
 
@@ -34,14 +36,17 @@ const getJsonItem = (key: string) => {
 export const getCached = {
   token: () => getItem(TOKEN),
   user: () => getJsonItem(USER),
+  coordinates: () => getJsonItem(COORDINATES),
 };
 
 export const cache = {
   token: (token: string) => setItem(TOKEN, token),
   user: (user: User) => setJsonItem(USER, user),
+  coordinates: (coordinate: Coordinate) => setJsonItem(COORDINATES, coordinate),
 };
 
 export const clearCached = {
-  token: () => remoteItem(TOKEN),
-  user: () => remoteItem(USER),
+  token: () => removeItem(TOKEN),
+  user: () => removeItem(USER),
+  coordinates: () => removeItem(COORDINATES),
 };
