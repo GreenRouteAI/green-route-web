@@ -100,11 +100,14 @@ export const authProvider: AuthProvider & {
     }
   },
   async getPermissions(params) {
+    return null;
+  },
+  async forgotPassword() {
     return {
       success: true,
     };
   },
-  async forgotPassword() {
+  updatePassword: async params => {
     return {
       success: true,
     };
