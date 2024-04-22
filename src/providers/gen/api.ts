@@ -27,7 +27,7 @@ import {
   setSearchParams,
   serializeDataIfNeeded,
   toPathString,
-  createRequestFunction
+  createRequestFunction,
 } from './common';
 import type { RequestArgs } from './base';
 // @ts-ignore
@@ -219,7 +219,7 @@ export const FuelTypeEnum = {
   Electricity: 'ELECTRICITY',
   NaturalGas: 'NATURAL_GAS',
   BioBas: 'BIO_BAS',
-  FossilGas: 'FOSSIL_GAS'
+  FossilGas: 'FOSSIL_GAS',
 } as const;
 
 export type FuelTypeEnum = (typeof FuelTypeEnum)[keyof typeof FuelTypeEnum];
@@ -425,7 +425,7 @@ export const TravelDescriptionAccommodationTypeEnum = {
   Tent: 'TENT',
   Apartment: 'APARTMENT',
   Room: 'ROOM',
-  RentedApartment: 'RENTED_APARTMENT'
+  RentedApartment: 'RENTED_APARTMENT',
 } as const;
 
 export type TravelDescriptionAccommodationTypeEnum = (typeof TravelDescriptionAccommodationTypeEnum)[keyof typeof TravelDescriptionAccommodationTypeEnum];
@@ -520,7 +520,7 @@ export const VehicleTypeEnum = {
   Subway: 'SUBWAY',
   Ferry: 'FERRY',
   Train: 'TRAIN',
-  Walking: 'WALKING'
+  Walking: 'WALKING',
 } as const;
 
 export type VehicleTypeEnum = (typeof VehicleTypeEnum)[keyof typeof VehicleTypeEnum];
@@ -578,12 +578,12 @@ export const FileApiAxiosParamCreator = function (configuration?: Configuration)
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -616,15 +616,15 @@ export const FileApiAxiosParamCreator = function (configuration?: Configuration)
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
-    }
+    },
   };
 };
 
@@ -661,7 +661,7 @@ export const FileApiFp = function (configuration?: Configuration) {
       const index = configuration?.serverIndex ?? 0;
       const operationBasePath = operationServerMap['FileApi.uploadFile']?.[index]?.url;
       return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-    }
+    },
   };
 };
 
@@ -680,7 +680,7 @@ export const FileApiFactory = function (configuration?: Configuration, basePath?
      * @throws {RequiredError}
      */
     downloadFile(requestParameters: FileApiDownloadFileRequest, options?: RawAxiosRequestConfig): AxiosPromise<File> {
-      return localVarFp.downloadFile(requestParameters.fileId, options).then((request) => request(axios, basePath));
+      return localVarFp.downloadFile(requestParameters.fileId, options).then(request => request(axios, basePath));
     },
     /**
      *
@@ -690,8 +690,8 @@ export const FileApiFactory = function (configuration?: Configuration, basePath?
      * @throws {RequiredError}
      */
     uploadFile(requestParameters: FileApiUploadFileRequest, options?: RawAxiosRequestConfig): AxiosPromise<string> {
-      return localVarFp.uploadFile(requestParameters.fileId, requestParameters.body, options).then((request) => request(axios, basePath));
-    }
+      return localVarFp.uploadFile(requestParameters.fileId, requestParameters.body, options).then(request => request(axios, basePath));
+    },
   };
 };
 
@@ -748,7 +748,7 @@ export class FileApi extends BaseAPI {
   public downloadFile(requestParameters: FileApiDownloadFileRequest, options?: RawAxiosRequestConfig) {
     return FileApiFp(this.configuration)
       .downloadFile(requestParameters.fileId, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -762,7 +762,7 @@ export class FileApi extends BaseAPI {
   public uploadFile(requestParameters: FileApiUploadFileRequest, options?: RawAxiosRequestConfig) {
     return FileApiFp(this.configuration)
       .uploadFile(requestParameters.fileId, requestParameters.body, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 }
 
@@ -796,14 +796,14 @@ export const HealthApiAxiosParamCreator = function (configuration?: Configuratio
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
-    }
+    },
   };
 };
 
@@ -825,7 +825,7 @@ export const HealthApiFp = function (configuration?: Configuration) {
       const index = configuration?.serverIndex ?? 0;
       const operationBasePath = operationServerMap['HealthApi.ping']?.[index]?.url;
       return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-    }
+    },
   };
 };
 
@@ -843,8 +843,8 @@ export const HealthApiFactory = function (configuration?: Configuration, basePat
      * @throws {RequiredError}
      */
     ping(options?: RawAxiosRequestConfig): AxiosPromise<string> {
-      return localVarFp.ping(options).then((request) => request(axios, basePath));
-    }
+      return localVarFp.ping(options).then(request => request(axios, basePath));
+    },
   };
 };
 
@@ -865,7 +865,7 @@ export class HealthApi extends BaseAPI {
   public ping(options?: RawAxiosRequestConfig) {
     return HealthApiFp(this.configuration)
       .ping(options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 }
 
@@ -904,13 +904,13 @@ export const RouteApiAxiosParamCreator = function (configuration?: Configuration
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(travelDescription, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -940,15 +940,15 @@ export const RouteApiAxiosParamCreator = function (configuration?: Configuration
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(getForecastRequest, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
-    }
+    },
   };
 };
 
@@ -987,7 +987,7 @@ export const RouteApiFp = function (configuration?: Configuration) {
       const index = configuration?.serverIndex ?? 0;
       const operationBasePath = operationServerMap['RouteApi.getForecast']?.[index]?.url;
       return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-    }
+    },
   };
 };
 
@@ -1006,7 +1006,7 @@ export const RouteApiFactory = function (configuration?: Configuration, basePath
      * @throws {RequiredError}
      */
     generateItineraries(requestParameters: RouteApiGenerateItinerariesRequest, options?: RawAxiosRequestConfig): AxiosPromise<Itinerary> {
-      return localVarFp.generateItineraries(requestParameters.travelDescription, options).then((request) => request(axios, basePath));
+      return localVarFp.generateItineraries(requestParameters.travelDescription, options).then(request => request(axios, basePath));
     },
     /**
      *
@@ -1016,8 +1016,8 @@ export const RouteApiFactory = function (configuration?: Configuration, basePath
      * @throws {RequiredError}
      */
     getForecast(requestParameters: RouteApiGetForecastRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Weather> {
-      return localVarFp.getForecast(requestParameters.getForecastRequest, options).then((request) => request(axios, basePath));
-    }
+      return localVarFp.getForecast(requestParameters.getForecastRequest, options).then(request => request(axios, basePath));
+    },
   };
 };
 
@@ -1067,7 +1067,7 @@ export class RouteApi extends BaseAPI {
   public generateItineraries(requestParameters: RouteApiGenerateItinerariesRequest, options?: RawAxiosRequestConfig) {
     return RouteApiFp(this.configuration)
       .generateItineraries(requestParameters.travelDescription, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1081,7 +1081,7 @@ export class RouteApi extends BaseAPI {
   public getForecast(requestParameters: RouteApiGetForecastRequest = {}, options?: RawAxiosRequestConfig) {
     return RouteApiFp(this.configuration)
       .getForecast(requestParameters.getForecastRequest, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 }
 
@@ -1115,12 +1115,12 @@ export const SecurityApiAxiosParamCreator = function (configuration?: Configurat
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1152,15 +1152,15 @@ export const SecurityApiAxiosParamCreator = function (configuration?: Configurat
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(user, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
-    }
+    },
   };
 };
 
@@ -1195,7 +1195,7 @@ export const SecurityApiFp = function (configuration?: Configuration) {
       const index = configuration?.serverIndex ?? 0;
       const operationBasePath = operationServerMap['SecurityApi.signUp']?.[index]?.url;
       return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-    }
+    },
   };
 };
 
@@ -1213,7 +1213,7 @@ export const SecurityApiFactory = function (configuration?: Configuration, baseP
      * @throws {RequiredError}
      */
     signIn(options?: RawAxiosRequestConfig): AxiosPromise<User> {
-      return localVarFp.signIn(options).then((request) => request(axios, basePath));
+      return localVarFp.signIn(options).then(request => request(axios, basePath));
     },
     /**
      *
@@ -1223,8 +1223,8 @@ export const SecurityApiFactory = function (configuration?: Configuration, baseP
      * @throws {RequiredError}
      */
     signUp(requestParameters: SecurityApiSignUpRequest, options?: RawAxiosRequestConfig): AxiosPromise<User> {
-      return localVarFp.signUp(requestParameters.user, options).then((request) => request(axios, basePath));
-    }
+      return localVarFp.signUp(requestParameters.user, options).then(request => request(axios, basePath));
+    },
   };
 };
 
@@ -1259,7 +1259,7 @@ export class SecurityApi extends BaseAPI {
   public signIn(options?: RawAxiosRequestConfig) {
     return SecurityApiFp(this.configuration)
       .signIn(options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1273,7 +1273,7 @@ export class SecurityApi extends BaseAPI {
   public signUp(requestParameters: SecurityApiSignUpRequest, options?: RawAxiosRequestConfig) {
     return SecurityApiFp(this.configuration)
       .signUp(requestParameters.user, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 }
 
@@ -1307,12 +1307,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1342,12 +1342,12 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
     },
     /**
@@ -1380,15 +1380,15 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
       localVarRequestOptions.headers = {
         ...localVarHeaderParameter,
         ...headersFromBaseOptions,
-        ...options.headers
+        ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration);
 
       return {
         url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions
+        options: localVarRequestOptions,
       };
-    }
+    },
   };
 };
 
@@ -1437,7 +1437,7 @@ export const UserApiFp = function (configuration?: Configuration) {
       const index = configuration?.serverIndex ?? 0;
       const operationBasePath = operationServerMap['UserApi.updateProfilePic']?.[index]?.url;
       return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-    }
+    },
   };
 };
 
@@ -1455,7 +1455,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
      * @throws {RequiredError}
      */
     getActivities(options?: RawAxiosRequestConfig): AxiosPromise<Array<Itinerary>> {
-      return localVarFp.getActivities(options).then((request) => request(axios, basePath));
+      return localVarFp.getActivities(options).then(request => request(axios, basePath));
     },
     /**
      *
@@ -1465,7 +1465,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
      * @throws {RequiredError}
      */
     getUserById(requestParameters: UserApiGetUserByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<User> {
-      return localVarFp.getUserById(requestParameters.id, options).then((request) => request(axios, basePath));
+      return localVarFp.getUserById(requestParameters.id, options).then(request => request(axios, basePath));
     },
     /**
      *
@@ -1475,8 +1475,8 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
      * @throws {RequiredError}
      */
     updateProfilePic(requestParameters: UserApiUpdateProfilePicRequest, options?: RawAxiosRequestConfig): AxiosPromise<string> {
-      return localVarFp.updateProfilePic(requestParameters.id, requestParameters.body, options).then((request) => request(axios, basePath));
-    }
+      return localVarFp.updateProfilePic(requestParameters.id, requestParameters.body, options).then(request => request(axios, basePath));
+    },
   };
 };
 
@@ -1532,7 +1532,7 @@ export class UserApi extends BaseAPI {
   public getActivities(options?: RawAxiosRequestConfig) {
     return UserApiFp(this.configuration)
       .getActivities(options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1546,7 +1546,7 @@ export class UserApi extends BaseAPI {
   public getUserById(requestParameters: UserApiGetUserByIdRequest, options?: RawAxiosRequestConfig) {
     return UserApiFp(this.configuration)
       .getUserById(requestParameters.id, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 
   /**
@@ -1560,6 +1560,6 @@ export class UserApi extends BaseAPI {
   public updateProfilePic(requestParameters: UserApiUpdateProfilePicRequest, options?: RawAxiosRequestConfig) {
     return UserApiFp(this.configuration)
       .updateProfilePic(requestParameters.id, requestParameters.body, options)
-      .then((request) => request(this.axios, this.basePath));
+      .then(request => request(this.axios, this.basePath));
   }
 }

@@ -1,14 +1,9 @@
-import { AuthProvider } from "@refinedev/core";
-import {
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
-import { cache, getCached } from "../utils";
-import { securityApi, userApi } from "./api";
-import { auth } from "./firebase-conf";
-import { Configuration } from "./gen";
+import { AuthProvider } from '@refinedev/core';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { cache, getCached } from '../utils';
+import { securityApi, userApi } from './api';
+import { auth } from './firebase-conf';
+import { Configuration } from './gen';
 
 export const authProvider: AuthProvider & {
   getConfig: () => Configuration;
@@ -23,7 +18,7 @@ export const authProvider: AuthProvider & {
     }
     return {
       authenticated: false,
-      redirectTo: "/login",
+      redirectTo: '/login',
     };
   },
   async login({ email, password }) {
@@ -35,14 +30,14 @@ export const authProvider: AuthProvider & {
       cache.user(user);
       return {
         success: true,
-        redirectTo: "/",
+        redirectTo: '/',
       };
     } catch (err) {
       return {
         success: false,
         error: {
-          name: "LoginError",
-          message: (err as Error).message || "Invalid username or password",
+          name: 'LoginError',
+          message: (err as Error).message || 'Invalid username or password',
         },
       };
     }
@@ -51,11 +46,11 @@ export const authProvider: AuthProvider & {
     signOut(auth);
     return {
       success: true,
-      redirectTo: "/login",
+      redirectTo: '/login',
     };
   },
   getConfig() {
-    const accessToken = getCached.token() || "";
+    const accessToken = getCached.token() || '';
     const conf = new Configuration({ accessToken });
     conf.baseOptions = { headers: { Authorization: `Bearer ${accessToken}` } };
     return conf;
@@ -67,7 +62,7 @@ export const authProvider: AuthProvider & {
   async loginGoogle() {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({
-      prompt: "select_account ",
+      prompt: 'select_account ',
     });
     const { user } = await signInWithPopup(auth, provider);
     const token = await user?.getIdToken();
@@ -78,16 +73,16 @@ export const authProvider: AuthProvider & {
       cache.user(data);
       return {
         success: true,
-        redirectTo: "/",
+        redirectTo: '/',
       };
     } catch (err) {
       const { data } = await securityApi().signUp({
-        user: { email: user.email || "", authentication_id: user.uid },
+        user: { email: user.email || '', authentication_id: user.uid },
       });
       cache.user(data);
       return {
         success: true,
-        redirectTo: "/",
+        redirectTo: '/',
       };
     }
   },

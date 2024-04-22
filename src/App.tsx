@@ -1,43 +1,27 @@
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import Dashboard from "@mui/icons-material/Dashboard";
-import FastfoodOutlinedIcon from "@mui/icons-material/FastfoodOutlined";
-import LabelOutlinedIcon from "@mui/icons-material/LabelOutlined";
-import MopedOutlined from "@mui/icons-material/MopedOutlined";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import StoreOutlinedIcon from "@mui/icons-material/StoreOutlined";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import GlobalStyles from "@mui/material/GlobalStyles";
-import { Authenticated, Refine } from "@refinedev/core";
-import { KBarProvider } from "@refinedev/kbar";
-import {
-  ErrorComponent,
-  RefineSnackbarProvider,
-  ThemedLayoutV2,
-  useNotificationProvider,
-} from "@refinedev/mui";
-import routerProvider, {
-  CatchAllNavigate,
-  DocumentTitleHandler,
-  NavigateToResource,
-  UnsavedChangesNotifier,
-} from "@refinedev/react-router-v6";
-import dataProvider from "@refinedev/simple-rest";
-import { useTranslation } from "react-i18next";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import { Header, Title } from "./components";
-import { ColorModeContextProvider } from "./contexts";
-import { AuthPage } from "./pages/auth";
-import { CategoryList } from "./pages/categories";
-import { CourierCreate, CourierEdit, CourierList } from "./pages/couriers";
-import { CustomerList, CustomerShow } from "./pages/customers";
-import { DashboardPage } from "./pages/dashboard";
-import { OrderList, OrderShow } from "./pages/orders";
-import { ProductCreate, ProductEdit, ProductList } from "./pages/products";
-import { StoreCreate, StoreEdit, StoreList } from "./pages/stores";
-import { authProvider } from "./providers";
+import Dashboard from '@mui/icons-material/Dashboard';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import GlobalStyles from '@mui/material/GlobalStyles';
+import { Authenticated, Refine } from '@refinedev/core';
+import { KBarProvider } from '@refinedev/kbar';
+import { ErrorComponent, RefineSnackbarProvider, ThemedLayoutV2, useNotificationProvider } from '@refinedev/mui';
+import routerProvider, { CatchAllNavigate, DocumentTitleHandler, NavigateToResource, UnsavedChangesNotifier } from '@refinedev/react-router-v6';
+import dataProvider from '@refinedev/simple-rest';
+import { useTranslation } from 'react-i18next';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { Header, Title } from './components';
+import { ColorModeContextProvider } from './contexts';
+import { AuthPage } from './pages/auth';
+import { CategoryList } from './pages/categories';
+import { CourierCreate, CourierEdit, CourierList } from './pages/couriers';
+import { CustomerList, CustomerShow } from './pages/customers';
+import { DashboardPage } from './pages/dashboard';
+import { OrderList, OrderShow } from './pages/orders';
+import { ProductCreate, ProductEdit, ProductList } from './pages/products';
+import { StoreCreate, StoreEdit, StoreList } from './pages/stores';
+import { authProvider } from './providers';
 
-const API_URL = "https://api.finefoods.refine.dev";
+const API_URL = 'https://api.finefoods.refine.dev';
 
 const App: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -52,7 +36,7 @@ const App: React.FC = () => {
       <KBarProvider>
         <ColorModeContextProvider>
           <CssBaseline />
-          <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
+          <GlobalStyles styles={{ html: { WebkitFontSmoothing: 'auto' } }} />
           <RefineSnackbarProvider>
             <Refine
               routerProvider={routerProvider}
@@ -68,204 +52,121 @@ const App: React.FC = () => {
               notificationProvider={useNotificationProvider}
               resources={[
                 {
-                  name: "dashboard",
-                  list: "/",
+                  name: 'dashboard',
+                  list: '/',
                   meta: {
-                    label: "Dashboard",
+                    label: 'Dashboard',
                     icon: <Dashboard />,
                   },
                 },
-                {
-                  name: "orders",
-                  list: "/orders",
-                  show: "/orders/:id",
-                  meta: {
-                    icon: <ShoppingBagOutlinedIcon />,
-                  },
-                },
-                {
-                  name: "users",
-                  list: "/customers",
-                  show: "/customers/:id",
-                  meta: {
-                    icon: <AccountCircleOutlinedIcon />,
-                  },
-                },
-                {
-                  name: "products",
-                  list: "/products",
-                  create: "/products/new",
-                  edit: "/products/:id/edit",
-                  show: "/products/:id",
-                  meta: {
-                    icon: <FastfoodOutlinedIcon />,
-                  },
-                },
-                {
-                  name: "categories",
-                  list: "/categories",
-                  meta: {
-                    icon: <LabelOutlinedIcon />,
-                  },
-                },
-                {
-                  name: "stores",
-                  list: "/stores",
-                  create: "/stores/new",
-                  edit: "/stores/:id/edit",
-                  meta: {
-                    icon: <StoreOutlinedIcon />,
-                  },
-                },
-                {
-                  name: "couriers",
-                  list: "/couriers",
-                  create: "/couriers/new",
-                  edit: "/couriers/:id/edit",
-                  meta: {
-                    icon: <MopedOutlined />,
-                  },
-                },
-              ]}
-            >
+              ]}>
               <Routes>
                 <Route
                   element={
-                    <Authenticated
-                      key="authenticated-routes"
-                      fallback={<CatchAllNavigate to="/login" />}
-                    >
+                    <Authenticated key='authenticated-routes' fallback={<CatchAllNavigate to='/login' />}>
                       <ThemedLayoutV2 Header={Header} Title={Title}>
-                        <Box
-                          sx={{
-                            maxWidth: "1200px",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                          }}
-                        >
+                        <Box sx={{ maxWidth: '1200px', marginLeft: 'auto', marginRight: 'auto' }}>
                           <Outlet />
                         </Box>
                       </ThemedLayoutV2>
                     </Authenticated>
-                  }
-                >
+                  }>
                   <Route index element={<DashboardPage />} />
 
-                  <Route path="/orders">
+                  <Route path='/orders'>
                     <Route index element={<OrderList />} />
-                    <Route path=":id" element={<OrderShow />} />
+                    <Route path=':id' element={<OrderShow />} />
                   </Route>
                   <Route
-                    path="/customers"
+                    path='/customers'
                     element={
                       <CustomerList>
                         <Outlet />
                       </CustomerList>
-                    }
-                  >
-                    <Route path=":id" element={<CustomerShow />} />
+                    }>
+                    <Route path=':id' element={<CustomerShow />} />
                   </Route>
 
                   <Route
-                    path="/products"
+                    path='/products'
                     element={
                       <ProductList>
                         <Outlet />
                       </ProductList>
-                    }
-                  >
-                    <Route path=":id/edit" element={<ProductEdit />} />
-                    <Route path="new" element={<ProductCreate />} />
+                    }>
+                    <Route path=':id/edit' element={<ProductEdit />} />
+                    <Route path='new' element={<ProductCreate />} />
                   </Route>
 
-                  <Route path="/stores">
+                  <Route path='/stores'>
                     <Route index element={<StoreList />} />
-                    <Route path="new" element={<StoreCreate />} />
-                    <Route path=":id/edit" element={<StoreEdit />} />
+                    <Route path='new' element={<StoreCreate />} />
+                    <Route path=':id/edit' element={<StoreEdit />} />
                   </Route>
 
-                  <Route path="/categories" element={<CategoryList />} />
+                  <Route path='/categories' element={<CategoryList />} />
 
-                  <Route path="/couriers">
+                  <Route path='/couriers'>
                     <Route
-                      path=""
+                      path=''
                       element={
                         <CourierList>
                           <Outlet />
                         </CourierList>
-                      }
-                    >
-                      <Route path="new" element={<CourierCreate />} />
+                      }>
+                      <Route path='new' element={<CourierCreate />} />
                     </Route>
 
-                    <Route path=":id/edit" element={<CourierEdit />} />
+                    <Route path=':id/edit' element={<CourierEdit />} />
                   </Route>
                 </Route>
 
                 <Route
                   element={
-                    <Authenticated key="auth-pages" fallback={<Outlet />}>
-                      <NavigateToResource resource="dashboard" />
+                    <Authenticated key='auth-pages' fallback={<Outlet />}>
+                      <NavigateToResource resource='dashboard' />
                     </Authenticated>
-                  }
-                >
+                  }>
+                  <Route path='/login' element={<AuthPage type='login' formProps={{ defaultValues: { email: '', password: '' } }} />} />
                   <Route
-                    path="/login"
+                    path='/register'
                     element={
                       <AuthPage
-                        type="login"
+                        type='register'
                         formProps={{
                           defaultValues: {
-                            email: "demo@refine.dev",
-                            password: "demodemo",
+                            email: '',
+                            password: '',
                           },
                         }}
                       />
                     }
                   />
                   <Route
-                    path="/register"
+                    path='/forgot-password'
                     element={
                       <AuthPage
-                        type="register"
+                        type='forgotPassword'
                         formProps={{
                           defaultValues: {
-                            email: "demo@refine.dev",
-                            password: "demodemo",
+                            email: 'demo@refine.dev',
                           },
                         }}
                       />
                     }
                   />
-                  <Route
-                    path="/forgot-password"
-                    element={
-                      <AuthPage
-                        type="forgotPassword"
-                        formProps={{
-                          defaultValues: {
-                            email: "demo@refine.dev",
-                          },
-                        }}
-                      />
-                    }
-                  />
-                  <Route
-                    path="/update-password"
-                    element={<AuthPage type="updatePassword" />}
-                  />
+                  <Route path='/update-password' element={<AuthPage type='updatePassword' />} />
                 </Route>
 
                 <Route
                   element={
-                    <Authenticated key="catch-all">
+                    <Authenticated key='catch-all'>
                       <ThemedLayoutV2 Header={Header} Title={Title}>
                         <Outlet />
                       </ThemedLayoutV2>
                     </Authenticated>
-                  }
-                >
-                  <Route path="*" element={<ErrorComponent />} />
+                  }>
+                  <Route path='*' element={<ErrorComponent />} />
                 </Route>
               </Routes>
               <UnsavedChangesNotifier />

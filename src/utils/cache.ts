@@ -1,9 +1,9 @@
-import { Coordinate } from "../interfaces";
-import { User } from "../providers/gen";
+import { Coordinate } from '../interfaces';
+import { User } from '../providers/gen';
 
-const TOKEN = "access-token";
-const USER = "user";
-const COORDINATES = "coordinates";
+const TOKEN = 'access-token';
+const USER = 'user';
+const COORDINATES = 'coordinates';
 
 const getItemName = (partName: string) => `green-app-${partName}`;
 
@@ -21,13 +21,13 @@ const setJsonItem = (key: string, object: unknown) => {
   try {
     setItem(key, JSON.stringify(object));
   } catch {
-    setItem(key, "null");
+    setItem(key, 'null');
   }
 };
 
 const getJsonItem = (key: string) => {
   try {
-    return JSON.parse(getItem(key) || "null");
+    return JSON.parse(getItem(key) || 'null');
   } catch {
     return null;
   }

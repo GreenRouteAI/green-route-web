@@ -1,32 +1,26 @@
-import {
-  HttpError,
-  useApiUrl,
-  useGetToPath,
-  useGo,
-  useTranslate,
-} from "@refinedev/core";
-import { DeleteButton, useAutocomplete } from "@refinedev/mui";
-import { useSearchParams } from "react-router-dom";
-import { useForm } from "@refinedev/react-hook-form";
-import { Controller } from "react-hook-form";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Stack from "@mui/material/Stack";
-import InputAdornment from "@mui/material/InputAdornment";
-import Autocomplete from "@mui/material/Autocomplete";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import FormLabel from "@mui/material/FormLabel";
-import { Drawer, DrawerHeader, ProductImageUpload } from "../../../components";
-import { ICategory, IFile, IProduct, Nullable } from "../../../interfaces";
-import { useImageUpload } from "../../../utils/use-image-upload";
+import { HttpError, useApiUrl, useGetToPath, useGo, useTranslate } from '@refinedev/core';
+import { DeleteButton, useAutocomplete } from '@refinedev/mui';
+import { useSearchParams } from 'react-router-dom';
+import { useForm } from '@refinedev/react-hook-form';
+import { Controller } from 'react-hook-form';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import TextField from '@mui/material/TextField';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import InputAdornment from '@mui/material/InputAdornment';
+import Autocomplete from '@mui/material/Autocomplete';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import FormLabel from '@mui/material/FormLabel';
+import { Drawer, DrawerHeader, ProductImageUpload } from '../../../components';
+import { ICategory, IFile, IProduct, Nullable } from '../../../interfaces';
+import { useImageUpload } from '../../../utils/use-image-upload';
 
 type Props = {
-  action: "create" | "edit";
+  action: 'create' | 'edit';
 };
 
 export const ProductDrawerForm = (props: Props) => {
@@ -39,18 +33,18 @@ export const ProductDrawerForm = (props: Props) => {
   const onDrawerCLose = () => {
     go({
       to:
-        searchParams.get("to") ??
+        searchParams.get('to') ??
         getToPath({
-          action: "list",
+          action: 'list',
         }) ??
-        "",
+        '',
       query: {
         to: undefined,
       },
       options: {
         keepQuery: true,
       },
-      type: "replace",
+      type: 'replace',
     });
   };
 
@@ -64,8 +58,8 @@ export const ProductDrawerForm = (props: Props) => {
     saveButtonProps,
   } = useForm<IProduct, HttpError, Nullable<IProduct>>({
     defaultValues: {
-      name: "",
-      description: "",
+      name: '',
+      description: '',
       price: 0,
       category: null,
       isActive: true,
@@ -74,21 +68,19 @@ export const ProductDrawerForm = (props: Props) => {
     refineCoreProps: {
       redirect: false,
       onMutationSuccess: () => {
-        if (props.action === "create") {
+        if (props.action === 'create') {
           onDrawerCLose();
         }
       },
     },
   });
-  const imageInput: IFile[] | null = watch("images");
+  const imageInput: IFile[] | null = watch('images');
 
   const { autocompleteProps } = useAutocomplete<ICategory>({
-    resource: "categories",
+    resource: 'categories',
   });
 
-  const imageUploadOnChangeHandler = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const imageUploadOnChangeHandler = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     const file: File = (target.files as FileList)[0];
 
@@ -97,38 +89,24 @@ export const ProductDrawerForm = (props: Props) => {
       file,
     });
 
-    setValue("images", image, { shouldValidate: true });
+    setValue('images', image, { shouldValidate: true });
   };
 
   return (
-    <Drawer
-      PaperProps={{ sx: { width: { sm: "100%", md: "416px" } } }}
-      open
-      anchor="right"
-      onClose={onDrawerCLose}
-    >
-      <DrawerHeader
-        title={t("products.actions.edit")}
-        onCloseClick={onDrawerCLose}
-      />
+    <Drawer PaperProps={{ sx: { width: { sm: '100%', md: '416px' } } }} open anchor='right' onClose={onDrawerCLose}>
+      <DrawerHeader title={t('products.actions.edit')} onCloseClick={onDrawerCLose} />
       <form
-        onSubmit={handleSubmit((data) => {
+        onSubmit={handleSubmit(data => {
           onFinish(data);
-        })}
-      >
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-        >
+        })}>
+        <Box display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
           <Controller
             control={control}
-            name="images"
+            name='images'
             defaultValue={[]}
             rules={{
-              required: t("errors.required.field", {
-                field: "images",
+              required: t('errors.required.field', {
+                field: 'images',
               }),
             }}
             render={({ field }) => {
@@ -136,11 +114,11 @@ export const ProductDrawerForm = (props: Props) => {
                 <ProductImageUpload
                   {...field}
                   sx={{
-                    marginTop: "32px",
+                    marginTop: '32px',
                   }}
                   previewURL={imageInput?.[0]?.url}
                   inputProps={{
-                    id: "images",
+                    id: 'images',
                     onChange: imageUploadOnChangeHandler,
                   }}
                 />
@@ -148,163 +126,116 @@ export const ProductDrawerForm = (props: Props) => {
             }}
           />
 
-          {errors.images && (
-            <FormHelperText error>{errors.images.message}</FormHelperText>
-          )}
+          {errors.images && <FormHelperText error>{errors.images.message}</FormHelperText>}
         </Box>
 
         <Paper
           sx={{
-            marginTop: "32px",
-          }}
-        >
-          <Stack padding="24px" spacing="24px">
+            marginTop: '32px',
+          }}>
+          <Stack padding='24px' spacing='24px'>
             <FormControl fullWidth>
               <Controller
                 control={control}
-                name="name"
-                defaultValue=""
+                name='name'
+                defaultValue=''
                 rules={{
-                  required: t("errors.required.field", {
-                    field: "name",
+                  required: t('errors.required.field', {
+                    field: 'name',
                   }),
                 }}
                 render={({ field }) => {
-                  return (
-                    <TextField
-                      {...field}
-                      variant="outlined"
-                      id="name"
-                      label={t("products.fields.name")}
-                      placeholder={t("products.fields.name")}
-                    />
-                  );
+                  return <TextField {...field} variant='outlined' id='name' label={t('products.fields.name')} placeholder={t('products.fields.name')} />;
                 }}
               />
-              {errors.name && (
-                <FormHelperText error>{errors.name.message}</FormHelperText>
-              )}
+              {errors.name && <FormHelperText error>{errors.name.message}</FormHelperText>}
             </FormControl>
             <FormControl fullWidth>
               <Controller
                 control={control}
-                name="description"
-                defaultValue=""
+                name='description'
+                defaultValue=''
                 rules={{
-                  required: t("errors.required.field", {
-                    field: "category",
+                  required: t('errors.required.field', {
+                    field: 'category',
                   }),
                 }}
                 render={({ field }) => {
-                  return (
-                    <TextField
-                      {...field}
-                      variant="outlined"
-                      id="description"
-                      label={t("products.fields.description")}
-                      placeholder={t("products.fields.description")}
-                    />
-                  );
+                  return <TextField {...field} variant='outlined' id='description' label={t('products.fields.description')} placeholder={t('products.fields.description')} />;
                 }}
               />
-              {errors.description && (
-                <FormHelperText error>
-                  {errors.description.message}
-                </FormHelperText>
-              )}
+              {errors.description && <FormHelperText error>{errors.description.message}</FormHelperText>}
             </FormControl>
             <FormControl fullWidth>
               <Controller
                 control={control}
-                name="price"
+                name='price'
                 defaultValue={0}
                 rules={{
-                  required: t("errors.required.field", {
-                    field: "price",
+                  required: t('errors.required.field', {
+                    field: 'price',
                   }),
                 }}
                 render={({ field }) => {
                   return (
                     <TextField
                       {...field}
-                      variant="outlined"
-                      id="price"
-                      label={t("products.fields.price")}
-                      placeholder={t("products.fields.price")}
-                      type="number"
+                      variant='outlined'
+                      id='price'
+                      label={t('products.fields.price')}
+                      placeholder={t('products.fields.price')}
+                      type='number'
                       InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">$</InputAdornment>
-                        ),
+                        startAdornment: <InputAdornment position='start'>$</InputAdornment>,
                       }}
                     />
                   );
                 }}
               />
-              {errors.price && (
-                <FormHelperText error>{errors.price.message}</FormHelperText>
-              )}
+              {errors.price && <FormHelperText error>{errors.price.message}</FormHelperText>}
             </FormControl>
             <FormControl>
               <Controller
                 disabled={formLoading}
                 control={control}
-                name="category"
+                name='category'
                 defaultValue={null}
                 rules={{
-                  required: t("errors.required.field", {
-                    field: "category",
+                  required: t('errors.required.field', {
+                    field: 'category',
                   }),
                 }}
                 render={({ field }) => (
                   <Autocomplete<ICategory>
-                    id="category"
+                    id='category'
                     {...autocompleteProps}
                     {...field}
                     onChange={(_, value) => {
                       field.onChange(value);
                     }}
-                    getOptionLabel={(item) => {
-                      return (
-                        autocompleteProps?.options?.find(
-                          (p) => p?.id?.toString() === item?.id?.toString()
-                        )?.title ?? ""
-                      );
+                    getOptionLabel={item => {
+                      return autocompleteProps?.options?.find(p => p?.id?.toString() === item?.id?.toString())?.title ?? '';
                     }}
-                    isOptionEqualToValue={(option, value) =>
-                      value === undefined ||
-                      option?.id?.toString() ===
-                        (value?.id ?? value)?.toString()
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Category"
-                        margin="normal"
-                        variant="outlined"
-                        error={!!errors.category}
-                        helperText={errors.category?.message}
-                        required
-                      />
+                    isOptionEqualToValue={(option, value) => value === undefined || option?.id?.toString() === (value?.id ?? value)?.toString()}
+                    renderInput={params => (
+                      <TextField {...params} label='Category' margin='normal' variant='outlined' error={!!errors.category} helperText={errors.category?.message} required />
                     )}
                   />
                 )}
               />
-              {errors.category && (
-                <FormHelperText error>{errors.category.message}</FormHelperText>
-              )}
+              {errors.category && <FormHelperText error>{errors.category.message}</FormHelperText>}
             </FormControl>
 
             <FormControl>
-              <FormLabel>{t("products.fields.isActive.label")}</FormLabel>
+              <FormLabel>{t('products.fields.isActive.label')}</FormLabel>
               <Controller
                 control={control}
-                name="isActive"
+                name='isActive'
                 rules={{
-                  validate: (value) => {
+                  validate: value => {
                     if (value === undefined) {
-                      return t("errors.required.field", {
-                        field: "isActive",
+                      return t('errors.required.field', {
+                        field: 'isActive',
                       });
                     }
                     return true;
@@ -313,52 +244,41 @@ export const ProductDrawerForm = (props: Props) => {
                 defaultValue={false}
                 render={({ field }) => (
                   <ToggleButtonGroup
-                    id="isActive"
+                    id='isActive'
                     {...field}
                     exclusive
-                    color="primary"
+                    color='primary'
                     onChange={(_, newValue) => {
-                      setValue("isActive", newValue, {
+                      setValue('isActive', newValue, {
                         shouldValidate: true,
                       });
 
                       return newValue;
-                    }}
-                  >
-                    <ToggleButton value={true}>
-                      {t("products.fields.isActive.true")}
-                    </ToggleButton>
-                    <ToggleButton value={false}>
-                      {t("products.fields.isActive.false")}
-                    </ToggleButton>
+                    }}>
+                    <ToggleButton value={true}>{t('products.fields.isActive.true')}</ToggleButton>
+                    <ToggleButton value={false}>{t('products.fields.isActive.false')}</ToggleButton>
                   </ToggleButtonGroup>
                 )}
               />
-              {errors.isActive && (
-                <FormHelperText error>{errors.isActive.message}</FormHelperText>
-              )}
+              {errors.isActive && <FormHelperText error>{errors.isActive.message}</FormHelperText>}
             </FormControl>
           </Stack>
         </Paper>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          padding="16px 24px"
-        >
-          <Button variant="text" color="inherit" onClick={onDrawerCLose}>
-            {t("buttons.cancel")}
+        <Stack direction='row' justifyContent='space-between' padding='16px 24px'>
+          <Button variant='text' color='inherit' onClick={onDrawerCLose}>
+            {t('buttons.cancel')}
           </Button>
-          {props.action === "edit" && (
+          {props.action === 'edit' && (
             <DeleteButton
               recordItemId={id}
-              variant="contained"
+              variant='contained'
               onSuccess={() => {
                 onDrawerCLose();
               }}
             />
           )}
-          <Button {...saveButtonProps} variant="contained">
-            {t("buttons.save")}
+          <Button {...saveButtonProps} variant='contained'>
+            {t('buttons.save')}
           </Button>
         </Stack>
       </form>

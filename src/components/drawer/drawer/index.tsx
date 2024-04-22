@@ -1,7 +1,7 @@
-import BaseDrawer, { DrawerProps } from "@mui/material/Drawer";
-import { PropsWithChildren } from "react";
-import gray from "@mui/material/colors/grey";
-import { useColorModeContext } from "../../../contexts";
+import BaseDrawer, { DrawerProps } from '@mui/material/Drawer';
+import { PropsWithChildren } from 'react';
+import gray from '@mui/material/colors/grey';
+import { useColorModeContext } from '../../../contexts';
 
 type Props = {} & DrawerProps;
 
@@ -12,12 +12,11 @@ export const Drawer = ({ children, ...props }: PropsWithChildren<Props>) => {
     <BaseDrawer
       {...props}
       sx={{
-        "& .MuiDrawer-paper": {
-          backgroundColor: mode === "light" ? gray[100] : "#000",
+        '& .MuiDrawer-paper': {
+          backgroundColor: mode === 'light' ? gray[100] : '#000',
         },
         ...props.sx,
-      }}
-    >
+      }}>
       {children}
     </BaseDrawer>
   );

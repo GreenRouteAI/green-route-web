@@ -1,22 +1,16 @@
-import React, { PropsWithChildren, useMemo } from "react";
-import {
-  HttpError,
-  useExport,
-  useGo,
-  useNavigation,
-  useTranslate,
-} from "@refinedev/core";
-import { useLocation } from "react-router-dom";
-import { DateField, ExportButton, useDataGrid } from "@refinedev/mui";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
-import VisibilityOutlined from "@mui/icons-material/VisibilityOutlined";
-import IconButton from "@mui/material/IconButton";
-import Paper from "@mui/material/Paper";
-import { IUser, IUserFilterVariables } from "../../interfaces";
-import { CustomTooltip, RefineListView } from "../../components";
-import { CustomerStatus } from "../../components/customer";
+import React, { PropsWithChildren, useMemo } from 'react';
+import { HttpError, useExport, useGo, useNavigation, useTranslate } from '@refinedev/core';
+import { useLocation } from 'react-router-dom';
+import { DateField, ExportButton, useDataGrid } from '@refinedev/mui';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import { IUser, IUserFilterVariables } from '../../interfaces';
+import { CustomTooltip, RefineListView } from '../../components';
+import { CustomerStatus } from '../../components/customer';
 
 export const CustomerList = ({ children }: PropsWithChildren) => {
   const go = useGo();
@@ -24,28 +18,24 @@ export const CustomerList = ({ children }: PropsWithChildren) => {
   const { showUrl } = useNavigation();
   const t = useTranslate();
 
-  const { dataGridProps, filters, sorters } = useDataGrid<
-    IUser,
-    HttpError,
-    IUserFilterVariables
-  >({
+  const { dataGridProps, filters, sorters } = useDataGrid<IUser, HttpError, IUserFilterVariables>({
     initialPageSize: 10,
   });
 
   const columns = useMemo<GridColDef<IUser>[]>(
     () => [
       {
-        field: "orderNumber",
-        headerName: "ID #",
-        description: "ID #",
+        field: 'orderNumber',
+        headerName: 'ID #',
+        description: 'ID #',
         width: 52,
         renderCell: function render({ row }) {
           return <Typography>#{row.id}</Typography>;
         },
       },
       {
-        field: "avatar",
-        headerName: t("users.fields.avatar.label"),
+        field: 'avatar',
+        headerName: t('users.fields.avatar.label'),
         renderCell: function render({ row }) {
           return (
             <Avatar
@@ -58,24 +48,24 @@ export const CustomerList = ({ children }: PropsWithChildren) => {
           );
         },
         width: 64,
-        align: "center",
-        headerAlign: "center",
+        align: 'center',
+        headerAlign: 'center',
         sortable: false,
       },
       {
-        field: "gsm",
-        headerName: t("users.fields.gsm"),
+        field: 'gsm',
+        headerName: t('users.fields.gsm'),
         width: 120,
         sortable: false,
       },
       {
-        field: "fullName",
-        headerName: t("users.fields.name"),
+        field: 'fullName',
+        headerName: t('users.fields.name'),
         minWidth: 140,
       },
       {
-        field: "address",
-        headerName: t("users.addresses.address"),
+        field: 'address',
+        headerName: t('users.addresses.address'),
         minWidth: 284,
         flex: 1,
         renderCell: function render({ row }) {
@@ -85,14 +75,13 @@ export const CustomerList = ({ children }: PropsWithChildren) => {
             <CustomTooltip title={text}>
               <Typography
                 sx={{
-                  whiteSpace: "pre-wrap",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  display: "-webkit-box",
-                  WebkitLineClamp: "1",
-                  WebkitBoxOrient: "vertical",
-                }}
-              >
+                  whiteSpace: 'pre-wrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: '-webkit-box',
+                  WebkitLineClamp: '1',
+                  WebkitBoxOrient: 'vertical',
+                }}>
                 {row.addresses[0].text}
               </Typography>
             </CustomTooltip>
@@ -100,53 +89,52 @@ export const CustomerList = ({ children }: PropsWithChildren) => {
         },
       },
       {
-        field: "createdAt",
+        field: 'createdAt',
         width: 220,
-        headerName: t("users.fields.createdAt"),
+        headerName: t('users.fields.createdAt'),
         renderCell: function render({ row }) {
-          return <DateField value={row.createdAt} format="LL / hh:mm a" />;
+          return <DateField value={row.createdAt} format='LL / hh:mm a' />;
         },
       },
       {
-        field: "isActive",
-        headerName: t("users.fields.isActive.label"),
+        field: 'isActive',
+        headerName: t('users.fields.isActive.label'),
         width: 120,
         renderCell: function render({ row }) {
           return <CustomerStatus value={row.isActive} />;
         },
       },
       {
-        field: "actions",
-        headerName: t("table.actions"),
+        field: 'actions',
+        headerName: t('table.actions'),
         width: 80,
-        align: "center",
-        headerAlign: "center",
+        align: 'center',
+        headerAlign: 'center',
         renderCell: function render({ row }) {
           return (
             <IconButton
               sx={{
-                color: "text.secondary",
+                color: 'text.secondary',
               }}
               onClick={() => {
                 return go({
-                  to: `${showUrl("users", row.id)}`,
+                  to: `${showUrl('users', row.id)}`,
                   query: {
                     to: pathname,
                   },
                   options: {
                     keepQuery: true,
                   },
-                  type: "replace",
+                  type: 'replace',
                 });
-              }}
-            >
+              }}>
               <VisibilityOutlined />
             </IconButton>
           );
         },
       },
     ],
-    [t, go, pathname, showUrl],
+    [t, go, pathname, showUrl]
   );
 
   const { isLoading, triggerExport } = useExport<IUser>({
@@ -154,7 +142,7 @@ export const CustomerList = ({ children }: PropsWithChildren) => {
     filters,
     pageSize: 50,
     maxItemCount: 50,
-    mapData: (item) => {
+    mapData: item => {
       return {
         id: item.id,
         fullName: item.fullName,
@@ -167,26 +155,9 @@ export const CustomerList = ({ children }: PropsWithChildren) => {
 
   return (
     <>
-      <RefineListView
-        breadcrumb={false}
-        headerButtons={
-          <ExportButton
-            variant="outlined"
-            onClick={triggerExport}
-            loading={isLoading}
-            size="medium"
-            sx={{ height: "40px" }}
-          />
-        }
-      >
+      <RefineListView breadcrumb={false} headerButtons={<ExportButton variant='outlined' onClick={triggerExport} loading={isLoading} size='medium' sx={{ height: '40px' }} />}>
         <Paper>
-          <DataGrid
-            {...dataGridProps}
-            sx={{}}
-            columns={columns}
-            autoHeight
-            pageSizeOptions={[10, 20, 50, 100]}
-          />
+          <DataGrid {...dataGridProps} sx={{}} columns={columns} autoHeight pageSizeOptions={[10, 20, 50, 100]} />
         </Paper>
       </RefineListView>
       {children}

@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo } from 'react';
 
 interface MarkerProps extends google.maps.MarkerOptions {
   onClick?: (event: google.maps.FeatureMouseEvent) => void;
@@ -29,16 +29,16 @@ const Marker: React.FC<MarkerProps> = ({ onClick, onDragEnd, ...options }) => {
         draggable: !!onDragEnd,
       });
       if (onClick) {
-        marker.addListener("click", onClick);
+        marker.addListener('click', onClick);
       }
       if (onDragEnd) {
-        marker.addListener("dragend", onDragEnd);
+        marker.addListener('dragend', onDragEnd);
       }
     }
 
     return () => {
       if (marker) {
-        google.maps.event.clearListeners(marker, "click");
+        google.maps.event.clearListeners(marker, 'click');
       }
     };
   }, [marker, options, onClick, onDragEnd]);

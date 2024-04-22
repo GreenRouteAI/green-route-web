@@ -1,11 +1,6 @@
 export interface IOrderChart {
   count: number;
-  status:
-    | "waiting"
-    | "ready"
-    | "on the way"
-    | "delivered"
-    | "could not be delivered";
+  status: 'waiting' | 'ready' | 'on the way' | 'delivered' | 'could not be delivered';
 }
 
 export interface IOrderTotalCount {
@@ -15,13 +10,13 @@ export interface IOrderTotalCount {
 
 export interface ISalesChart {
   date: string;
-  title: "Order Count" | "Order Amount";
+  title: 'Order Count' | 'Order Amount';
   value: number;
 }
 
 export interface IOrderStatus {
   id: number;
-  text: "Pending" | "Ready" | "On The Way" | "Delivered" | "Cancelled";
+  text: 'Pending' | 'Ready' | 'On The Way' | 'Delivered' | 'Cancelled';
 }
 
 export interface IUser {
@@ -53,7 +48,7 @@ export interface IFile {
   name: string;
   percent?: number;
   size: number;
-  status?: "error" | "success" | "done" | "uploading" | "removed";
+  status?: 'error' | 'success' | 'done' | 'uploading' | 'removed';
   type: string;
   uid?: string;
   url: string;
@@ -123,7 +118,7 @@ export interface IUserFilterVariables {
 
 export interface ICourierStatus {
   id: number;
-  text: "Available" | "Offline" | "On delivery";
+  text: 'Available' | 'Offline' | 'On delivery';
 }
 
 export interface ICourier {
@@ -149,7 +144,7 @@ export interface IReview {
   user: IUser;
   star: number;
   createDate: string;
-  status: "pending" | "approved" | "rejected";
+  status: 'pending' | 'approved' | 'rejected';
   comment: string[];
 }
 
@@ -172,4 +167,4 @@ export type Nullable<T> = {
   [P in keyof T]: T[P] | null;
 };
 
-export * from "./maps";
+export * from './maps';

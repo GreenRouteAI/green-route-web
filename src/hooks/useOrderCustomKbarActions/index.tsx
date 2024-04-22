@@ -1,23 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
-import { useTranslate, useUpdate } from "@refinedev/core";
-import {
-  Action,
-  createAction,
-  Priority,
-  useRegisterActions,
-} from "@refinedev/kbar";
-import CheckOutlined from "@mui/icons-material/CheckOutlined";
-import CloseOutlined from "@mui/icons-material/CloseOutlined";
+import { useCallback, useEffect, useState } from 'react';
+import { useTranslate, useUpdate } from '@refinedev/core';
+import { Action, createAction, Priority, useRegisterActions } from '@refinedev/kbar';
+import CheckOutlined from '@mui/icons-material/CheckOutlined';
+import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
-import { IOrder } from "../../interfaces";
+import { IOrder } from '../../interfaces';
 
 export const useOrderCustomKbarActions = (order?: IOrder): void => {
   const t = useTranslate();
-  const canAcceptOrder = order?.status.text === "Pending";
-  const canRejectOrder =
-    order?.status.text === "Pending" ||
-    order?.status.text === "Ready" ||
-    order?.status.text === "On The Way";
+  const canAcceptOrder = order?.status.text === 'Pending';
+  const canRejectOrder = order?.status.text === 'Pending' || order?.status.text === 'Ready' || order?.status.text === 'On The Way';
 
   const [actions, setActions] = useState<Action[]>([]);
   const { mutate } = useUpdate();
@@ -27,14 +19,14 @@ export const useOrderCustomKbarActions = (order?: IOrder): void => {
       if (!order?.id) return;
 
       mutate({
-        resource: "orders",
+        resource: 'orders',
         id: order?.id,
         values: {
           status,
         },
       });
     },
-    [mutate, order?.id],
+    [mutate, order?.id]
   );
 
   useEffect(() => {
@@ -42,33 +34,33 @@ export const useOrderCustomKbarActions = (order?: IOrder): void => {
     if (canAcceptOrder) {
       preActions.push(
         createAction({
-          name: t("buttons.accept"),
+          name: t('buttons.accept'),
           icon: <CheckOutlined />,
-          section: "actions",
+          section: 'actions',
           perform: () => {
             handleMutate({
               id: 2,
-              text: "Ready",
+              text: 'Ready',
             });
           },
           priority: Priority.HIGH,
-        }),
+        })
       );
     }
     if (canRejectOrder) {
       preActions.push(
         createAction({
-          name: t("buttons.reject"),
+          name: t('buttons.reject'),
           icon: <CloseOutlined />,
-          section: "actions",
+          section: 'actions',
           perform: () => {
             handleMutate({
               id: 5,
-              text: "Cancelled",
+              text: 'Cancelled',
             });
           },
           priority: Priority.HIGH,
-        }),
+        })
       );
     }
     setActions(preActions);

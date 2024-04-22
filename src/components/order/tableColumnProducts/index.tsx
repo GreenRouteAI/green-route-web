@@ -1,9 +1,9 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
-import { CustomTooltip } from "../../customTooltip";
-import { IOrder } from "../../../interfaces";
-import { getUniqueListWithCount } from "../../../utils/unique-list-with-count";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import { CustomTooltip } from '../../customTooltip';
+import { IOrder } from '../../../interfaces';
+import { getUniqueListWithCount } from '../../../utils/unique-list-with-count';
 
 type Props = {
   order: IOrder;
@@ -12,19 +12,19 @@ type Props = {
 export const OrderTableColumnProducts = ({ order }: Props) => {
   const uniqueProducts = getUniqueListWithCount({
     list: order?.products || [],
-    field: "id",
+    field: 'id',
   });
   const visibleProducts = uniqueProducts.slice(0, 3);
   const unvisibleProducts = uniqueProducts.slice(3);
 
   return (
-    <Box display="flex" gap="12px">
-      {visibleProducts.map((product) => {
+    <Box display='flex' gap='12px'>
+      {visibleProducts.map(product => {
         const image = product.images?.[0];
         return (
           <CustomTooltip key={product.id} title={product.name}>
             <Avatar
-              variant="rounded"
+              variant='rounded'
               sx={{
                 width: 32,
                 height: 32,
@@ -37,22 +37,18 @@ export const OrderTableColumnProducts = ({ order }: Props) => {
       })}
       {!!unvisibleProducts.length && (
         <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          width="32px"
-          height="32px"
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
+          width='32px'
+          height='32px'
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "dark" ? "#757575" : "#D9D9D9",
-          }}
-        >
+            backgroundColor: theme => (theme.palette.mode === 'dark' ? '#757575' : '#D9D9D9'),
+          }}>
           <Typography
             sx={{
-              color: (theme) =>
-                theme.palette.mode === "dark" ? "#121212" : "#FFFFFF",
-            }}
-          >
+              color: theme => (theme.palette.mode === 'dark' ? '#121212' : '#FFFFFF'),
+            }}>
             +{unvisibleProducts.length}
           </Typography>
         </Box>

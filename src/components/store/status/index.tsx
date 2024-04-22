@@ -1,36 +1,32 @@
-import Chip, { ChipProps } from "@mui/material/Chip";
-import { useTranslate } from "@refinedev/core";
-import { IStore } from "../../../interfaces";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
-import { useTheme } from "@mui/material/styles";
-import { green } from "@mui/material/colors";
+import Chip, { ChipProps } from '@mui/material/Chip';
+import { useTranslate } from '@refinedev/core';
+import { IStore } from '../../../interfaces';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
+import { useTheme } from '@mui/material/styles';
+import { green } from '@mui/material/colors';
 
 type Props = {
-  value: IStore["isActive"];
-  size?: ChipProps["size"];
+  value: IStore['isActive'];
+  size?: ChipProps['size'];
   label?: string;
 };
 
 export const StoreStatus = (props: Props) => {
   const { palette } = useTheme();
-  const isDarkMode = palette.mode === "dark";
+  const isDarkMode = palette.mode === 'dark';
 
   const t = useTranslate();
 
-  const color = props.value
-    ? isDarkMode
-      ? green[200]
-      : green[800]
-    : "default";
-  const icon: ChipProps["icon"] = props.value ? (
+  const color = props.value ? (isDarkMode ? green[200] : green[800]) : 'default';
+  const icon: ChipProps['icon'] = props.value ? (
     <CheckCircleIcon
       sx={{
         fill: isDarkMode ? green[200] : green[600],
       }}
     />
   ) : (
-    <BlockOutlinedIcon color="action" />
+    <BlockOutlinedIcon color='action' />
   );
 
   return (
@@ -41,8 +37,8 @@ export const StoreStatus = (props: Props) => {
         borderColor: color,
         color: color,
       }}
-      variant="outlined"
-      size={props?.size || "small"}
+      variant='outlined'
+      size={props?.size || 'small'}
     />
   );
 };

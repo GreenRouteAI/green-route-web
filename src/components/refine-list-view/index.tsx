@@ -1,4 +1,4 @@
-import { List, ListProps } from "@refinedev/mui";
+import { List, ListProps } from '@refinedev/mui';
 
 type Props = {} & ListProps;
 
@@ -8,28 +8,27 @@ export const RefineListView = ({ children, ...props }: Props) => {
       {...props}
       headerProps={{
         sx: {
-          display: "flex",
-          flexWrap: "wrap",
-          ".MuiCardHeader-action": {
+          display: 'flex',
+          flexWrap: 'wrap',
+          '.MuiCardHeader-action': {
             margin: 0,
-            alignSelf: "center",
+            alignSelf: 'center',
           },
-          height: "72px",
+          height: '72px',
         },
       }}
       headerButtonProps={{
-        alignItems: "center",
+        alignItems: 'center',
         ...props.headerButtonProps,
       }}
       wrapperProps={{
         sx: {
-          backgroundColor: "transparent",
-          backgroundImage: "none",
-          boxShadow: "none",
+          backgroundColor: 'transparent',
+          backgroundImage: 'none',
+          boxShadow: 'none',
           ...props.wrapperProps?.sx,
         },
-      }}
-    >
+      }}>
       {children}
     </List>
   );

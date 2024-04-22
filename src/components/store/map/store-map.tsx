@@ -1,9 +1,9 @@
-import { useCallback } from "react";
-import _debounce from "lodash/debounce";
-import Box from "@mui/material/Box";
-import { GoogleMap, MapMarker } from "../../map";
-import { IStore } from "../../../interfaces";
-import { convertLatLng } from "../../../utils/geocoding";
+import { useCallback } from 'react';
+import _debounce from 'lodash/debounce';
+import Box from '@mui/material/Box';
+import { GoogleMap, MapMarker } from '../../map';
+import { IStore } from '../../../interfaces';
+import { convertLatLng } from '../../../utils/geocoding';
 
 type Props = {
   store?: IStore;
@@ -21,7 +21,7 @@ export const StoreMap = (props: Props) => {
         props.onDragEnd({ lat, lng });
       }
     }, 1000),
-    [],
+    []
   );
 
   const handleDragEnd = (e: google.maps.FeatureMouseEvent) => {
@@ -46,29 +46,25 @@ export const StoreMap = (props: Props) => {
   return (
     <Box
       sx={{
-        height: "100%",
-        width: "100%",
-        borderRadius: "8px",
-        overflow: "hidden",
-        position: "relative",
-      }}
-    >
+        height: '100%',
+        width: '100%',
+        borderRadius: '8px',
+        overflow: 'hidden',
+        position: 'relative',
+      }}>
       <GoogleMap
         mapProps={{
-          mapId: "store-map",
+          mapId: 'store-map',
           center: {
             lat: lat || 39.6685458,
             lng: lng || -75.6760264,
           },
-        }}
-      >
+        }}>
         {lat && lng && (
           <MapMarker
             key={props?.store?.id}
             icon={{
-              url: props.isDisabled
-                ? "/images/marker-store.svg"
-                : "/images/marker-store-pick.svg",
+              url: props.isDisabled ? '/images/marker-store.svg' : '/images/marker-store-pick.svg',
             }}
             position={{
               lat,

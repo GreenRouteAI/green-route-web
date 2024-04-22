@@ -1,9 +1,9 @@
-import { PropsWithChildren } from "react";
-import CardBase, { CardProps } from "@mui/material/Card";
-import CardHeader, { CardHeaderProps } from "@mui/material/CardHeader";
-import CardContent, { CardContentProps } from "@mui/material/CardContent";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
+import { PropsWithChildren } from 'react';
+import CardBase, { CardProps } from '@mui/material/Card';
+import CardHeader, { CardHeaderProps } from '@mui/material/CardHeader';
+import CardContent, { CardContentProps } from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 
 type Props = {
   title?: React.ReactNode;
@@ -12,39 +12,27 @@ type Props = {
   cardContentProps?: CardContentProps;
 } & CardProps;
 
-export const Card = ({
-  icon,
-  title,
-  cardHeaderProps,
-  cardContentProps,
-  children,
-  ...rest
-}: PropsWithChildren<Props>) => {
+export const Card = ({ icon, title, cardHeaderProps, cardContentProps, children, ...rest }: PropsWithChildren<Props>) => {
   return (
     <CardBase
       {...rest}
       sx={{
-        ".MuiCardContent-root:last-child": {
-          paddingBottom: "0px",
+        '.MuiCardContent-root:last-child': {
+          paddingBottom: '0px',
         },
-        height: "100%",
+        height: '100%',
         ...rest.sx,
-      }}
-    >
+      }}>
       <CardHeader
-        title={
-          <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
-            {title}
-          </Typography>
-        }
+        title={<Typography sx={{ fontSize: '14px', fontWeight: 500 }}>{title}</Typography>}
         avatar={icon}
         sx={{
-          height: "56px",
-          ".MuiCardHeader-avatar": {
-            color: "primary.main",
-            marginRight: "8px",
+          height: '56px',
+          '.MuiCardHeader-avatar': {
+            color: 'primary.main',
+            marginRight: '8px',
           },
-          ".MuiCardHeader-action": {
+          '.MuiCardHeader-action': {
             margin: 0,
           },
         }}
@@ -56,8 +44,7 @@ export const Card = ({
         sx={{
           ...cardContentProps?.sx,
           padding: 0,
-        }}
-      >
+        }}>
         {children}
       </CardContent>
     </CardBase>

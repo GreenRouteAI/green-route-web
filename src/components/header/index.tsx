@@ -1,31 +1,25 @@
-import { useState, useEffect, useContext, ReactNode } from "react";
-import {
-  useList,
-  useTranslate,
-  useGetIdentity,
-  useGetLocale,
-  useSetLocale,
-} from "@refinedev/core";
-import { RefineThemedLayoutV2HeaderProps, HamburgerMenu } from "@refinedev/mui";
-import AppBar from "@mui/material/AppBar";
-import IconButton from "@mui/material/IconButton";
-import Link from "@mui/material/Link";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Toolbar from "@mui/material/Toolbar";
-import Box from "@mui/material/Box";
-import Autocomplete from "@mui/material/Autocomplete";
-import Stack from "@mui/material/Stack";
-import FormControl from "@mui/material/FormControl";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import SearchOutlined from "@mui/icons-material/SearchOutlined";
-import BrightnessHighIcon from "@mui/icons-material/BrightnessHigh";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import i18n from "../../i18n";
-import { IOrder, IStore, ICourier, IIdentity } from "../../interfaces";
-import { ColorModeContext } from "../../contexts";
+import { useState, useEffect, useContext, ReactNode } from 'react';
+import { useList, useTranslate, useGetIdentity, useGetLocale, useSetLocale } from '@refinedev/core';
+import { RefineThemedLayoutV2HeaderProps, HamburgerMenu } from '@refinedev/mui';
+import AppBar from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
+import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
+import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import SearchOutlined from '@mui/icons-material/SearchOutlined';
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import i18n from '../../i18n';
+import { IOrder, IStore, ICourier, IIdentity } from '../../interfaces';
+import { ColorModeContext } from '../../contexts';
 
 interface IOptions {
   label: string;
@@ -35,7 +29,7 @@ interface IOptions {
 }
 
 export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
   const [options, setOptions] = useState<IOptions[]>([]);
 
   const { mode, setMode } = useContext(ColorModeContext);
@@ -48,24 +42,24 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
   const t = useTranslate();
 
   const { refetch: refetchOrders } = useList<IOrder>({
-    resource: "orders",
+    resource: 'orders',
     config: {
-      filters: [{ field: "q", operator: "contains", value }],
+      filters: [{ field: 'q', operator: 'contains', value }],
     },
     queryOptions: {
       enabled: false,
-      onSuccess: (data) => {
-        const orderOptionGroup: IOptions[] = data.data.map((item) => {
+      onSuccess: data => {
+        const orderOptionGroup: IOptions[] = data.data.map(item => {
           return {
             label: `${item.store.title} / #${item.orderNumber}`,
             link: `/orders/show/${item.id}`,
-            category: t("orders.orders"),
+            category: t('orders.orders'),
             avatar: (
               <Avatar
-                variant="rounded"
+                variant='rounded'
                 sx={{
-                  width: "32px",
-                  height: "32px",
+                  width: '32px',
+                  height: '32px',
                 }}
                 src={item.products?.[0]?.images?.[0]?.url}
               />
@@ -73,57 +67,57 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
           };
         });
         if (orderOptionGroup.length > 0) {
-          setOptions((prevOptions) => [...prevOptions, ...orderOptionGroup]);
+          setOptions(prevOptions => [...prevOptions, ...orderOptionGroup]);
         }
       },
     },
   });
 
   const { refetch: refetchStores } = useList<IStore>({
-    resource: "stores",
+    resource: 'stores',
     config: {
-      filters: [{ field: "q", operator: "contains", value }],
+      filters: [{ field: 'q', operator: 'contains', value }],
     },
     queryOptions: {
       enabled: false,
-      onSuccess: (data) => {
-        const storeOptionGroup = data.data.map((item) => {
+      onSuccess: data => {
+        const storeOptionGroup = data.data.map(item => {
           return {
             label: `${item.title} - ${item.address.text}`,
             link: `/stores/edit/${item.id}`,
-            category: t("stores.stores"),
+            category: t('stores.stores'),
           };
         });
-        setOptions((prevOptions) => [...prevOptions, ...storeOptionGroup]);
+        setOptions(prevOptions => [...prevOptions, ...storeOptionGroup]);
       },
     },
   });
 
   const { refetch: refetchCouriers } = useList<ICourier>({
-    resource: "couriers",
+    resource: 'couriers',
     config: {
-      filters: [{ field: "q", operator: "contains", value }],
+      filters: [{ field: 'q', operator: 'contains', value }],
     },
     queryOptions: {
       enabled: false,
-      onSuccess: (data) => {
-        const courierOptionGroup = data.data.map((item) => {
+      onSuccess: data => {
+        const courierOptionGroup = data.data.map(item => {
           return {
             label: `${item.name}`,
             avatar: (
               <Avatar
                 sx={{
-                  width: "32px",
-                  height: "32px",
+                  width: '32px',
+                  height: '32px',
                 }}
                 src={item.avatar?.[0]?.url}
               />
             ),
             link: `/couriers/edit/${item.id}`,
-            category: t("couriers.couriers"),
+            category: t('couriers.couriers'),
           };
         });
-        setOptions((prevOptions) => [...prevOptions, ...courierOptionGroup]);
+        setOptions(prevOptions => [...prevOptions, ...courierOptionGroup]);
       },
     },
   });
@@ -138,131 +132,123 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
 
   return (
     <AppBar
-      color="default"
-      position="sticky"
+      color='default'
+      position='sticky'
       elevation={0}
       sx={{
-        "& .MuiToolbar-root": {
-          minHeight: "64px",
+        '& .MuiToolbar-root': {
+          minHeight: '64px',
         },
-        height: "64px",
-        borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-        backgroundColor: (theme) => theme.palette.background.paper,
-      }}
-    >
+        height: '64px',
+        borderBottom: theme => `1px solid ${theme.palette.divider}`,
+        backgroundColor: theme => theme.palette.background.paper,
+      }}>
       <Toolbar
         sx={{
           paddingLeft: {
-            xs: "0",
-            sm: "16px",
-            md: "24px",
+            xs: '0',
+            sm: '16px',
+            md: '24px',
           },
-        }}
-      >
+        }}>
         <Box
-          minWidth="40px"
-          minHeight="40px"
+          minWidth='40px'
+          minHeight='40px'
           marginRight={{
-            xs: "0",
-            sm: "16px",
+            xs: '0',
+            sm: '16px',
           }}
           sx={{
-            "& .MuiButtonBase-root": {
+            '& .MuiButtonBase-root': {
               marginLeft: 0,
               marginRight: 0,
             },
-          }}
-        >
+          }}>
           <HamburgerMenu />
         </Box>
 
         <Stack
-          direction="row"
-          width="100%"
-          justifyContent="space-between"
-          alignItems="center"
+          direction='row'
+          width='100%'
+          justifyContent='space-between'
+          alignItems='center'
           gap={{
-            xs: "8px",
-            sm: "24px",
-          }}
-        >
-          <Stack direction="row" flex={1}>
+            xs: '8px',
+            sm: '24px',
+          }}>
+          <Stack direction='row' flex={1}>
             <Autocomplete
               sx={{
                 maxWidth: 550,
               }}
-              id="search-autocomplete"
+              id='search-autocomplete'
               options={options}
-              filterOptions={(x) => x}
+              filterOptions={x => x}
               disableClearable
               freeSolo
               fullWidth
-              size="small"
+              size='small'
               onInputChange={(event, value) => {
-                if (event?.type === "change") {
+                if (event?.type === 'change') {
                   setValue(value);
                 }
               }}
-              groupBy={(option) => option.category}
+              groupBy={option => option.category}
               renderOption={(props, option: IOptions) => {
                 return (
-                  <Link href={option.link} underline="none">
+                  <Link href={option.link} underline='none'>
                     <Box
                       {...props}
-                      component="li"
+                      component='li'
                       sx={{
-                        display: "flex",
-                        padding: "10px",
-                        alignItems: "center",
-                        gap: "10px",
-                      }}
-                    >
+                        display: 'flex',
+                        padding: '10px',
+                        alignItems: 'center',
+                        gap: '10px',
+                      }}>
                       {option?.avatar && option.avatar}
                       <Typography
                         sx={{
                           fontSize: {
-                            md: "14px",
-                            lg: "16px",
+                            md: '14px',
+                            lg: '16px',
                           },
-                        }}
-                      >
+                        }}>
                         {option.label}
                       </Typography>
                     </Box>
                   </Link>
                 );
               }}
-              renderInput={(params) => {
+              renderInput={params => {
                 return (
                   <Box
-                    position="relative"
+                    position='relative'
                     sx={{
-                      "& .MuiFormLabel-root": {
-                        paddingRight: "24px",
+                      '& .MuiFormLabel-root': {
+                        paddingRight: '24px',
                       },
                       display: {
-                        xs: "none",
-                        sm: "block",
+                        xs: 'none',
+                        sm: 'block',
                       },
-                    }}
-                  >
+                    }}>
                     <TextField
                       {...params}
-                      label={t("search.placeholder")}
+                      label={t('search.placeholder')}
                       InputProps={{
                         ...params.InputProps,
                       }}
                     />
                     <IconButton
                       sx={{
-                        position: "absolute",
+                        position: 'absolute',
                         right: 0,
                         top: 0,
-                        "&:hover": {
-                          backgroundColor: "transparent",
+                        '&:hover': {
+                          backgroundColor: 'transparent',
                         },
-                      }}
-                    >
+                      }}>
                       <SearchOutlined />
                     </IconButton>
                   </Box>
@@ -271,25 +257,23 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
             />
           </Stack>
           <Stack
-            direction="row"
-            alignItems="center"
+            direction='row'
+            alignItems='center'
             spacing={{
-              xs: "8px",
-              sm: "24px",
-            }}
-          >
+              xs: '8px',
+              sm: '24px',
+            }}>
             <Select
-              size="small"
+              size='small'
               defaultValue={currentLocale}
-              inputProps={{ "aria-label": "Without label" }}
-              variant="outlined"
+              inputProps={{ 'aria-label': 'Without label' }}
+              variant='outlined'
               sx={{
                 width: {
-                  xs: "120px",
-                  sm: "160px",
+                  xs: '120px',
+                  sm: '160px',
                 },
-              }}
-            >
+              }}>
               {[...(i18n.languages ?? [])].sort().map((lang: string) => (
                 <MenuItem
                   selected={currentLocale === lang}
@@ -298,11 +282,8 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
                   onClick={() => {
                     changeLanguage(lang);
                   }}
-                  value={lang}
-                >
-                  <Typography color="text.secondary">
-                    {lang === "en" ? "English" : "German"}
-                  </Typography>
+                  value={lang}>
+                  <Typography color='text.secondary'>{lang === 'en' ? 'English' : 'German'}</Typography>
                 </MenuItem>
               ))}
             </Select>
@@ -312,37 +293,33 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
                 setMode();
               }}
               sx={{
-                backgroundColor: (theme) =>
-                  theme.palette.mode === "dark" ? "transparent" : "#00000014",
-              }}
-            >
-              {mode === "dark" ? (
+                backgroundColor: theme => (theme.palette.mode === 'dark' ? 'transparent' : '#00000014'),
+              }}>
+              {mode === 'dark' ? (
                 <BrightnessHighIcon />
               ) : (
                 <Brightness4Icon
                   sx={{
-                    fill: "#000000DE",
+                    fill: '#000000DE',
                   }}
                 />
               )}
             </IconButton>
 
             <Stack
-              direction="row"
+              direction='row'
               gap={{
-                xs: "8px",
-                sm: "16px",
+                xs: '8px',
+                sm: '16px',
               }}
-              alignItems="center"
-              justifyContent="center"
-            >
+              alignItems='center'
+              justifyContent='center'>
               <Typography
                 fontSize={{
-                  xs: "12px",
-                  sm: "14px",
+                  xs: '12px',
+                  sm: '14px',
                 }}
-                variant="subtitle2"
-              >
+                variant='subtitle2'>
                 {user?.name}
               </Typography>
               <Avatar src={user?.avatar} alt={user?.name} />

@@ -1,37 +1,32 @@
-import { useForm } from "@refinedev/react-hook-form";
-import { useDebounceValue } from "usehooks-ts";
-import {
-  convertLatLng,
-  LatLng,
-  getAddressWithLatLng,
-  getLatLngWithAddress,
-} from "../../../utils/geocoding";
-import { IStore } from "../../../interfaces";
-import { useEffect, useState } from "react";
-import { HttpError } from "@refinedev/core";
+import { useForm } from '@refinedev/react-hook-form';
+import { useDebounceValue } from 'usehooks-ts';
+import { convertLatLng, LatLng, getAddressWithLatLng, getLatLngWithAddress } from '../../../utils/geocoding';
+import { IStore } from '../../../interfaces';
+import { useEffect, useState } from 'react';
+import { HttpError } from '@refinedev/core';
 
 type Props = {
-  action: "create" | "edit";
+  action: 'create' | 'edit';
   onMutationSuccess?: () => void;
 };
 
 export const useStoreForm = (props: Props) => {
   const form = useForm<IStore, HttpError, IStore>({
     defaultValues: {
-      title: "",
+      title: '',
       isActive: true,
       address: {
-        text: "",
+        text: '',
         coordinate: [],
       },
       products: [],
-      email: "",
-      createdAt: "",
-      gsm: "",
+      email: '',
+      createdAt: '',
+      gsm: '',
     },
     refineCoreProps: {
       action: props.action,
-      redirect: props.action === "create" ? "list" : false,
+      redirect: props.action === 'create' ? 'list' : false,
       onMutationSuccess: () => {
         props.onMutationSuccess?.();
       },
@@ -40,8 +35,8 @@ export const useStoreForm = (props: Props) => {
   const store = form.refineCore.queryResult?.data?.data;
 
   const [latLng, setLatLng] = useState<Partial<LatLng>>({
-    lat: props.action === "create" ? 39.66853 : undefined,
-    lng: props.action === "create" ? -75.67602 : undefined,
+    lat: props.action === 'create' ? 39.66853 : undefined,
+    lng: props.action === 'create' ? -75.67602 : undefined,
   });
 
   useEffect(() => {
@@ -55,14 +50,11 @@ export const useStoreForm = (props: Props) => {
 
   // we are using these debounced values to get lang and lat from the address text
   // to minimize the number of requests, we are using debounced values
-  const [debouncedAdressValue, setDebouncedAdressValue] = useDebounceValue(
-    form?.getValues("address.text"),
-    500
-  );
+  const [debouncedAdressValue, setDebouncedAdressValue] = useDebounceValue(form?.getValues('address.text'), 500);
   // get lat and lng with address
   useEffect(() => {
     if (debouncedAdressValue) {
-      getLatLngWithAddress(debouncedAdressValue).then((data) => {
+      getLatLngWithAddress(debouncedAdressValue).then(data => {
         // set form field with lat and lng values
         if (data) {
           const { lat, lng } = convertLatLng({
@@ -70,7 +62,7 @@ export const useStoreForm = (props: Props) => {
             lng: data.lng,
           });
 
-          form.setValue("address.coordinate", [lat, lng]);
+          form.setValue('address.coordinate', [lat, lng]);
 
           setLatLng({
             lat,
@@ -81,23 +73,16 @@ export const useStoreForm = (props: Props) => {
     }
   }, [debouncedAdressValue, form.setValue]);
 
-  const handleMapOnDragEnd = async ({
-    lat,
-    lng,
-  }: {
-    lat: number;
-    lng: number;
-  }) => {
+  const handleMapOnDragEnd = async ({ lat, lng }: { lat: number; lng: number }) => {
     // get address with lat lng and set form field
     const data = await getAddressWithLatLng({ lat, lng });
     if (data) {
       // set form field with address value
-      form.setValue("address.text", data.address);
+      form.setValue('address.text', data.address);
     }
   };
 
-  const isLoading =
-    form.refineCore?.queryResult?.isFetching || form.refineCore.formLoading;
+  const isLoading = form.refineCore?.queryResult?.isFetching || form.refineCore.formLoading;
 
   return {
     ...form,

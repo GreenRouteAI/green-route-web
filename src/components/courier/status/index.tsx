@@ -1,10 +1,10 @@
-import Chip, { ChipProps } from "@mui/material/Chip";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
-import MopedOutlined from "@mui/icons-material/MopedOutlined";
-import { useTheme } from "@mui/material/styles";
-import { blue, green } from "@mui/material/colors";
-import { ICourierStatus } from "../../../interfaces";
+import Chip, { ChipProps } from '@mui/material/Chip';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
+import MopedOutlined from '@mui/icons-material/MopedOutlined';
+import { useTheme } from '@mui/material/styles';
+import { blue, green } from '@mui/material/colors';
+import { ICourierStatus } from '../../../interfaces';
 
 type Props = {
   value: ICourierStatus;
@@ -12,15 +12,15 @@ type Props = {
 
 export const CourierStatus = (props: Props) => {
   const { palette } = useTheme();
-  const isDarkMode = palette.mode === "dark";
+  const isDarkMode = palette.mode === 'dark';
 
-  const text = props?.value?.text || "Offline";
+  const text = props?.value?.text || 'Offline';
 
-  let color = "";
-  let icon: ChipProps["icon"];
+  let color = '';
+  let icon: ChipProps['icon'];
 
   switch (text) {
-    case "Available":
+    case 'Available':
       color = isDarkMode ? green[200] : green[800];
       icon = (
         <CheckCircleIcon
@@ -30,11 +30,11 @@ export const CourierStatus = (props: Props) => {
         />
       );
       break;
-    case "Offline":
-      color = "default";
-      icon = <BlockOutlinedIcon color="action" />;
+    case 'Offline':
+      color = 'default';
+      icon = <BlockOutlinedIcon color='action' />;
       break;
-    case "On delivery":
+    case 'On delivery':
       color = isDarkMode ? blue[200] : blue[800];
       icon = (
         <MopedOutlined
@@ -45,16 +45,16 @@ export const CourierStatus = (props: Props) => {
       );
       break;
     default:
-      color = "default";
-      icon = <BlockOutlinedIcon color="action" />;
+      color = 'default';
+      icon = <BlockOutlinedIcon color='action' />;
       break;
   }
 
   return (
     <Chip
       label={text}
-      variant="outlined"
-      size="small"
+      variant='outlined'
+      size='small'
       icon={icon}
       sx={{
         borderColor: color,

@@ -1,5 +1,5 @@
-import { authProvider } from "./auth-provider";
-import { FileApi, RouteApi, SecurityApi, UserApi } from "./gen";
+import { authProvider } from './auth-provider';
+import { FileApi, RouteApi, SecurityApi, UserApi } from './gen';
 
 export const securityApi = () => new SecurityApi(authProvider.getConfig());
 export const userApi = () => new UserApi(authProvider.getConfig());

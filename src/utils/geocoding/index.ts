@@ -1,5 +1,5 @@
-const API_URL = "https://geocode.maps.co";
-const API_KEY = "65caa5869275c294478503twc82c790";
+const API_URL = 'https://geocode.maps.co';
+const API_KEY = '65caa5869275c294478503twc82c790';
 
 export type LatLng = {
   lat: number;
@@ -21,7 +21,7 @@ export type Place = {
     suburb: string;
     city: string;
     state: string;
-    "ISO3166-2-lvl4": string;
+    'ISO3166-2-lvl4': string;
     postcode: string;
     country: string;
     country_code: string;
@@ -65,11 +65,8 @@ export const getLatLngWithAddress = async (address: string) => {
   }
 };
 
-export const convertLatLng = (latLng: {
-  lat: string | number;
-  lng: string | number;
-}) => {
-  const formatter = new Intl.NumberFormat("en", {
+export const convertLatLng = (latLng: { lat: string | number; lng: string | number }) => {
+  const formatter = new Intl.NumberFormat('en', {
     maximumFractionDigits: 5,
   });
   const lat = Number(formatter.format(Number(latLng.lat)));

@@ -1,27 +1,20 @@
-import { useState, useEffect, memo, useRef, PropsWithChildren } from "react";
-import { Root, createRoot } from "react-dom/client";
+import { useState, useEffect, memo, useRef, PropsWithChildren } from 'react';
+import { Root, createRoot } from 'react-dom/client';
 
 type AdvancedMarkerProps = {
   onClick?: (event: google.maps.FeatureMouseEvent) => void;
   map?: google.maps.Map;
 } & google.maps.marker.AdvancedMarkerElementOptions;
 
-const AdvancedMarker: React.FC<PropsWithChildren<AdvancedMarkerProps>> = ({
-  onClick,
-  map,
-  children,
-  zIndex,
-  ...options
-}) => {
+const AdvancedMarker: React.FC<PropsWithChildren<AdvancedMarkerProps>> = ({ onClick, map, children, zIndex, ...options }) => {
   const rootRef = useRef<Root | null>(null);
-  const [marker, setMarker] =
-    useState<google.maps.marker.AdvancedMarkerElement>();
+  const [marker, setMarker] = useState<google.maps.marker.AdvancedMarkerElement>();
 
   useEffect(() => {
     if (!map) return;
 
     if (!marker) {
-      const container = document.createElement("div");
+      const container = document.createElement('div');
       rootRef.current = createRoot(container);
 
       setMarker(
@@ -30,7 +23,7 @@ const AdvancedMarker: React.FC<PropsWithChildren<AdvancedMarkerProps>> = ({
           gmpClickable: !!onClick,
           content: container,
           map,
-        }),
+        })
       );
     }
   }, [marker, map, options, onClick]);
@@ -46,11 +39,11 @@ const AdvancedMarker: React.FC<PropsWithChildren<AdvancedMarkerProps>> = ({
 
     rootRef?.current?.render(children);
     if (onClick) {
-      google.maps.event.addListener(marker, "gmp-click", onClick);
+      google.maps.event.addListener(marker, 'gmp-click', onClick);
     }
     return () => {
       if (marker) {
-        google.maps.event.clearListeners(marker, "gmp-click");
+        google.maps.event.clearListeners(marker, 'gmp-click');
       }
     };
   }, [marker, children, onClick]);

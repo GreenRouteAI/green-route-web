@@ -1,5 +1,5 @@
-import { GoogleMap, MapMarker } from "../../map";
-import { IOrder } from "../../../interfaces";
+import { GoogleMap, MapMarker } from '../../map';
+import { IOrder } from '../../../interfaces';
 
 type Props = {
   order?: IOrder;
@@ -14,12 +14,11 @@ export const OrderDeliveryMap = ({ order }: Props) => {
           lng: -73.935242,
         },
         zoom: 9,
-      }}
-    >
+      }}>
       <MapMarker
         key={`user-marker-${order?.user.id}`}
         icon={{
-          url: "/images/marker-customer.svg",
+          url: '/images/marker-customer.svg',
         }}
         position={{
           lat: Number(order?.adress.coordinate[0]),
@@ -29,7 +28,7 @@ export const OrderDeliveryMap = ({ order }: Props) => {
       <MapMarker
         key={`user-marker-${order?.user.id}`}
         icon={{
-          url: "/images/marker-courier.svg",
+          url: '/images/marker-courier.svg',
         }}
         position={{
           lat: Number(order?.store.address.coordinate[0]),

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { authProvider } from "../../providers";
+import { useCallback, useEffect, useState } from 'react';
+import { authProvider } from '../../providers';
 
 /**
  * This hook is used to automatically login the user.
@@ -9,7 +9,7 @@ export const useAutoLoginForDemo = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const shouldLogin = localStorage.getItem("auto_login") !== "false";
+    const shouldLogin = localStorage.getItem('auto_login') !== 'false';
     if (!shouldLogin) {
       setIsLoading(false);
       return;
@@ -24,7 +24,7 @@ export const useAutoLoginForDemo = () => {
  *  This is used to skip the login page and demonstrate the application more quickly.
  */
 export const enableAutoLogin = () => {
-  localStorage.setItem("auto_login", "true");
+  localStorage.setItem('auto_login', 'true');
 };
 
 /**
@@ -32,5 +32,5 @@ export const enableAutoLogin = () => {
  *  This is used to skip the login page and demonstrate the application more quickly.
  */
 export const disableAutoLogin = () => {
-  localStorage.setItem("auto_login", "false");
+  localStorage.setItem('auto_login', 'false');
 };

@@ -1,6 +1,6 @@
-import { RefineThemes } from "@refinedev/mui";
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import gray from "@mui/material/colors/grey";
+import { RefineThemes } from '@refinedev/mui';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import gray from '@mui/material/colors/grey';
 
 const LightTheme = createTheme({
   ...RefineThemes.Orange,
@@ -9,13 +9,13 @@ const LightTheme = createTheme({
     MuiChip: {
       styleOverrides: {
         labelSmall: {
-          lineHeight: "18px",
+          lineHeight: '18px',
         },
       },
     },
     MuiCssBaseline: {
       styleOverrides: {
-        "main.MuiBox-root": {
+        'main.MuiBox-root': {
           backgroundColor: gray[100],
         },
         body: {
@@ -25,7 +25,7 @@ const LightTheme = createTheme({
     },
     MuiTypography: {
       defaultProps: {
-        variant: "body2",
+        variant: 'body2',
       },
     },
   },
@@ -38,23 +38,23 @@ const DarkTheme = createTheme({
     MuiChip: {
       styleOverrides: {
         labelSmall: {
-          lineHeight: "18px",
+          lineHeight: '18px',
         },
       },
     },
     MuiCssBaseline: {
       styleOverrides: {
-        "main.MuiBox-root": {
-          backgroundColor: "#121212",
+        'main.MuiBox-root': {
+          backgroundColor: '#121212',
         },
         body: {
-          backgroundColor: "#121212",
+          backgroundColor: '#121212',
         },
       },
     },
     MuiTypography: {
       defaultProps: {
-        variant: "body2",
+        variant: 'body2',
       },
     },
   },

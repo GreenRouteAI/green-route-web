@@ -1,19 +1,19 @@
-import { useList, useNavigation } from "@refinedev/core";
+import { useList, useNavigation } from '@refinedev/core';
 
-import { GoogleMap, MapMarker } from "../../../components";
-import { IOrder } from "../../../interfaces";
-import { useGetGeoLocation } from "../../../hooks";
+import { GoogleMap, MapMarker } from '../../../components';
+import { IOrder } from '../../../interfaces';
+import { useGetGeoLocation } from '../../../hooks';
 
 export const DeliveryMap: React.FC = () => {
   const { latitude, longitude } = useGetGeoLocation();
   const { data: orderData } = useList<IOrder>({
-    resource: "orders",
+    resource: 'orders',
     config: {
       filters: [
         {
-          field: "status.text",
-          operator: "eq",
-          value: "On The Way",
+          field: 'status.text',
+          operator: 'eq',
+          value: 'On The Way',
         },
       ],
       pagination: {

@@ -1,8 +1,5 @@
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const getUniqueListWithCount = <TData = any>(props: {
-  list: TData[];
-  field: string;
-}) => {
+export const getUniqueListWithCount = <TData = any>(props: { list: TData[]; field: string }) => {
   const { list, field } = props;
 
   const uniqueList = list.reduce(
@@ -18,7 +15,7 @@ export const getUniqueListWithCount = <TData = any>(props: {
       }
       return acc;
     },
-    {} as Record<string, TData & { count: number }>,
+    {} as Record<string, TData & { count: number }>
   );
 
   return Object.values(uniqueList);

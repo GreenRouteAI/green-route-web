@@ -1,28 +1,28 @@
-import { useTranslate } from "@refinedev/core";
-import Chip from "@mui/material/Chip";
-import type { ChipProps } from "@mui/material/Chip";
-import CancelIcon from "@mui/icons-material/Cancel";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import WatchLaterIcon from "@mui/icons-material/WatchLater";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MopedIcon from "@mui/icons-material/Moped";
-import { useTheme } from "@mui/material/styles";
-import { red, orange, cyan, blue, green } from "@mui/material/colors";
+import { useTranslate } from '@refinedev/core';
+import Chip from '@mui/material/Chip';
+import type { ChipProps } from '@mui/material/Chip';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MopedIcon from '@mui/icons-material/Moped';
+import { useTheme } from '@mui/material/styles';
+import { red, orange, cyan, blue, green } from '@mui/material/colors';
 
 type OrderStatusProps = {
-  status?: "Pending" | "Ready" | "On The Way" | "Delivered" | "Cancelled";
+  status?: 'Pending' | 'Ready' | 'On The Way' | 'Delivered' | 'Cancelled';
 };
 
 export const OrderStatus = ({ status }: OrderStatusProps) => {
   const t = useTranslate();
   const { palette } = useTheme();
-  const isDarkMode = palette.mode === "dark";
+  const isDarkMode = palette.mode === 'dark';
 
-  let color = "";
-  let icon: ChipProps["icon"];
+  let color = '';
+  let icon: ChipProps['icon'];
 
   switch (status) {
-    case "Pending":
+    case 'Pending':
       color = isDarkMode ? orange[200] : orange[800];
       icon = (
         <WatchLaterIcon
@@ -32,7 +32,7 @@ export const OrderStatus = ({ status }: OrderStatusProps) => {
         />
       );
       break;
-    case "Ready":
+    case 'Ready':
       color = isDarkMode ? cyan[200] : cyan[800];
       icon = (
         <NotificationsIcon
@@ -42,7 +42,7 @@ export const OrderStatus = ({ status }: OrderStatusProps) => {
         />
       );
       break;
-    case "On The Way":
+    case 'On The Way':
       color = isDarkMode ? blue[200] : blue[800];
       icon = (
         <MopedIcon
@@ -52,7 +52,7 @@ export const OrderStatus = ({ status }: OrderStatusProps) => {
         />
       );
       break;
-    case "Delivered":
+    case 'Delivered':
       color = isDarkMode ? green[200] : green[800];
       icon = (
         <CheckCircleIcon
@@ -62,7 +62,7 @@ export const OrderStatus = ({ status }: OrderStatusProps) => {
         />
       );
       break;
-    case "Cancelled":
+    case 'Cancelled':
       color = isDarkMode ? red[200] : red[800];
       icon = (
         <CancelIcon
@@ -76,8 +76,8 @@ export const OrderStatus = ({ status }: OrderStatusProps) => {
 
   return (
     <Chip
-      variant="outlined"
-      size="small"
+      variant='outlined'
+      size='small'
       icon={icon}
       sx={{
         borderColor: color,

@@ -1,31 +1,24 @@
-import React, { useMemo, useState } from "react";
-import { useApiUrl, useCustom, useTranslate } from "@refinedev/core";
-import dayjs from "dayjs";
-import Grid from "@mui/material/Grid";
-import { NumberField } from "@refinedev/mui";
-import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
-import WatchLaterOutlinedIcon from "@mui/icons-material/WatchLaterOutlined";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import {
-  DailyOrders,
-  DailyRevenue,
-  DeliveryMap,
-  NewCustomers,
-  OrderTimeline,
-  RecentOrders,
-  TrendingMenu,
-} from "../../components/dashboard";
-import { TrendIcon } from "../../components/icons";
-import { Card, RefineListView } from "../../components";
-import { IOrderChart, ISalesChart } from "../../interfaces";
+import React, { useMemo, useState } from 'react';
+import { useApiUrl, useCustom, useTranslate } from '@refinedev/core';
+import dayjs from 'dayjs';
+import Grid from '@mui/material/Grid';
+import { NumberField } from '@refinedev/mui';
+import { CalendarToday } from '@mui/icons-material';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+import WatchLaterOutlinedIcon from '@mui/icons-material/WatchLaterOutlined';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import { DailyOrders, DailyRevenue, DeliveryMap, NewCustomers, OrderTimeline, RecentOrders, TrendingMenu } from '../../components/dashboard';
+import { TrendIcon } from '../../components/icons';
+import { Card, RefineListView } from '../../components';
+import { IOrderChart, ISalesChart } from '../../interfaces';
 
-type DateFilter = "lastWeek" | "lastMonth";
+type DateFilter = 'lastWeek' | 'lastMonth';
 
 const DATE_FILTERS: Record<
   DateFilter,
@@ -35,12 +28,12 @@ const DATE_FILTERS: Record<
   }
 > = {
   lastWeek: {
-    text: "lastWeek",
-    value: "lastWeek",
+    text: 'lastWeek',
+    value: 'lastWeek',
   },
   lastMonth: {
-    text: "lastMonth",
-    value: "lastMonth",
+    text: 'lastMonth',
+    value: 'lastMonth',
   },
 };
 
@@ -48,30 +41,28 @@ export const DashboardPage: React.FC = () => {
   const t = useTranslate();
   const API_URL = useApiUrl();
 
-  const [selecetedDateFilter, setSelectedDateFilter] = useState<DateFilter>(
-    DATE_FILTERS.lastWeek.value,
-  );
+  const [selectedDateFilter, setSelectedDateFilter] = useState<DateFilter>(DATE_FILTERS.lastWeek.value);
 
   const dateFilterQuery = useMemo(() => {
     const now = dayjs();
-    switch (selecetedDateFilter) {
-      case "lastWeek":
+    switch (selectedDateFilter) {
+      case 'lastWeek':
         return {
-          start: now.subtract(6, "days").startOf("day").format(),
-          end: now.endOf("day").format(),
+          start: now.subtract(6, 'days').startOf('day').format(),
+          end: now.endOf('day').format(),
         };
-      case "lastMonth":
+      case 'lastMonth':
         return {
-          start: now.subtract(1, "month").startOf("day").format(),
-          end: now.endOf("day").format(),
+          start: now.subtract(1, 'month').startOf('day').format(),
+          end: now.endOf('day').format(),
         };
       default:
         return {
-          start: now.subtract(7, "days").startOf("day").format(),
-          end: now.endOf("day").format(),
+          start: now.subtract(7, 'days').startOf('day').format(),
+          end: now.endOf('day').format(),
         };
     }
-  }, [selecetedDateFilter]);
+  }, [selectedDateFilter]);
 
   const { data: dailyRevenueData } = useCustom<{
     data: ISalesChart[];
@@ -79,7 +70,7 @@ export const DashboardPage: React.FC = () => {
     trend: number;
   }>({
     url: `${API_URL}/dailyRevenue`,
-    method: "get",
+    method: 'get',
     config: {
       query: dateFilterQuery,
     },
@@ -92,7 +83,7 @@ export const DashboardPage: React.FC = () => {
     trend: number;
   }>({
     url: `${API_URL}/dailyOrders`,
-    method: "get",
+    method: 'get',
     config: {
       query: dateFilterQuery,
     },
@@ -105,7 +96,7 @@ export const DashboardPage: React.FC = () => {
     trend: number;
   }>({
     url: `${API_URL}/newCustomers`,
-    method: "get",
+    method: 'get',
     config: {
       query: dateFilterQuery,
     },
@@ -116,26 +107,24 @@ export const DashboardPage: React.FC = () => {
     <RefineListView
       headerButtons={() => (
         <Select
-          size="small"
-          value={selecetedDateFilter}
-          onChange={(e) => setSelectedDateFilter(e.target.value as DateFilter)}
+          size='small'
+          value={selectedDateFilter}
+          onChange={e => setSelectedDateFilter(e.target.value as DateFilter)}
           sx={{
-            width: "160px",
-            backgroundColor: (theme) => theme.palette.background.paper,
-          }}
-        >
-          {Object.values(DATE_FILTERS).map((filter) => {
+            width: '160px',
+            backgroundColor: theme => theme.palette.background.paper,
+          }}>
+          {Object.values(DATE_FILTERS).map(filter => {
             return (
               <MenuItem key={filter.value} value={filter.value}>
-                <Typography color="text.secondary" lineHeight="24px">
+                <Typography color='text.secondary' lineHeight='24px'>
                   {t(`dashboard.filter.date.${filter.text}`)}
                 </Typography>
               </MenuItem>
             );
           })}
         </Select>
-      )}
-    >
+      )}>
       <Grid container columns={24} spacing={3}>
         <Grid
           item
@@ -145,20 +134,19 @@ export const DashboardPage: React.FC = () => {
           lg={24}
           xl={10}
           sx={{
-            height: "264px",
-          }}
-        >
+            height: '264px',
+          }}>
           <Card
-            title={t("dashboard.dailyRevenue.title")}
-            icon={<MonetizationOnOutlinedIcon />}
+            title='Today'
+            icon={<CalendarToday />}
             sx={{
-              ".MuiCardContent-root:last-child": {
-                paddingBottom: "24px",
+              '.MuiCardContent-root:last-child': {
+                paddingBottom: '24px',
               },
             }}
             cardContentProps={{
               sx: {
-                height: "208px",
+                height: '208px',
               },
             }}
             cardHeaderProps={{
@@ -169,15 +157,14 @@ export const DashboardPage: React.FC = () => {
                     <NumberField
                       value={dailyRevenue?.trend || 0}
                       options={{
-                        style: "currency",
-                        currency: "USD",
+                        style: 'currency',
+                        currency: 'USD',
                       }}
                     />
                   }
                 />
               ),
-            }}
-          >
+            }}>
             <DailyRevenue data={dailyRevenueData?.data.data || []} />
           </Card>
         </Grid>
@@ -189,31 +176,24 @@ export const DashboardPage: React.FC = () => {
           lg={12}
           xl={7}
           sx={{
-            height: "264px",
-          }}
-        >
+            height: '264px',
+          }}>
           <Card
-            title={t("dashboard.dailyOrders.title")}
-            icon={<ShoppingBagOutlinedIcon />}
+            title='Tomorrow'
+            icon={<CalendarToday />}
             sx={{
-              ".MuiCardContent-root:last-child": {
-                paddingBottom: "24px",
+              '.MuiCardContent-root:last-child': {
+                paddingBottom: '24px',
               },
             }}
             cardContentProps={{
               sx: {
-                height: "208px",
+                height: '208px',
               },
             }}
             cardHeaderProps={{
-              action: (
-                <TrendIcon
-                  trend={dailyOrders?.trend}
-                  text={<NumberField value={dailyOrders?.trend || 0} />}
-                />
-              ),
-            }}
-          >
+              action: <TrendIcon trend={dailyOrders?.trend} text={<NumberField value={dailyOrders?.trend || 0} />} />,
+            }}>
             <DailyOrders data={dailyOrders?.data || []} />
           </Card>
         </Grid>
@@ -225,31 +205,24 @@ export const DashboardPage: React.FC = () => {
           lg={12}
           xl={7}
           sx={{
-            height: "264px",
-          }}
-        >
+            height: '264px',
+          }}>
           <Card
-            title={t("dashboard.newCustomers.title")}
-            icon={<AccountCircleOutlinedIcon />}
+            title='After tomorrow'
+            icon={<CalendarToday />}
             sx={{
-              ".MuiCardContent-root:last-child": {
-                paddingBottom: "24px",
+              '.MuiCardContent-root:last-child': {
+                paddingBottom: '24px',
               },
             }}
             cardContentProps={{
               sx: {
-                height: "208px",
+                height: '208px',
               },
             }}
             cardHeaderProps={{
-              action: (
-                <TrendIcon
-                  trend={newCustomers?.trend}
-                  text={<NumberField value={newCustomers?.trend || 0} />}
-                />
-              ),
-            }}
-          >
+              action: <TrendIcon trend={newCustomers?.trend} text={<NumberField value={newCustomers?.trend || 0} />} />,
+            }}>
             <NewCustomers data={newCustomers?.data || []} />
           </Card>
         </Grid>
@@ -261,18 +234,16 @@ export const DashboardPage: React.FC = () => {
           lg={15}
           xl={15}
           sx={{
-            height: "504px",
-          }}
-        >
+            height: '504px',
+          }}>
           <Card
             icon={<PlaceOutlinedIcon />}
-            title={t("dashboard.deliveryMap.title")}
+            title={t('dashboard.deliveryMap.title')}
             cardContentProps={{
               sx: {
-                height: "424px",
+                height: '424px',
               },
-            }}
-          >
+            }}>
             <DeliveryMap />
           </Card>
         </Grid>
@@ -284,13 +255,9 @@ export const DashboardPage: React.FC = () => {
           lg={9}
           xl={9}
           sx={{
-            height: "504px",
-          }}
-        >
-          <Card
-            icon={<WatchLaterOutlinedIcon />}
-            title={t("dashboard.timeline.title")}
-          >
+            height: '504px',
+          }}>
+          <Card icon={<WatchLaterOutlinedIcon />} title={t('dashboard.timeline.title')}>
             <OrderTimeline />
           </Card>
         </Grid>
@@ -302,18 +269,16 @@ export const DashboardPage: React.FC = () => {
           lg={15}
           xl={15}
           sx={{
-            height: "800px",
-          }}
-        >
+            height: '800px',
+          }}>
           <Card
             icon={<ShoppingBagOutlinedIcon />}
-            title={t("dashboard.recentOrders.title")}
+            title={t('dashboard.recentOrders.title')}
             cardContentProps={{
               sx: {
-                height: "688px",
+                height: '688px',
               },
-            }}
-          >
+            }}>
             <RecentOrders />
           </Card>
         </Grid>
@@ -325,13 +290,9 @@ export const DashboardPage: React.FC = () => {
           lg={9}
           xl={9}
           sx={{
-            height: "max-content",
-          }}
-        >
-          <Card
-            icon={<TrendingUpIcon />}
-            title={t("dashboard.trendingProducts.title")}
-          >
+            height: 'max-content',
+          }}>
+          <Card icon={<TrendingUpIcon />} title={t('dashboard.trendingProducts.title')}>
             <TrendingMenu />
           </Card>
         </Grid>

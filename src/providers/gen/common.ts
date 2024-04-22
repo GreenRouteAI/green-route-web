@@ -81,9 +81,9 @@ function setFlattenedQueryParams(urlSearchParams: URLSearchParams, parameter: an
   if (parameter == null) return;
   if (typeof parameter === 'object') {
     if (Array.isArray(parameter)) {
-      (parameter as any[]).forEach((item) => setFlattenedQueryParams(urlSearchParams, item, key));
+      (parameter as any[]).forEach(item => setFlattenedQueryParams(urlSearchParams, item, key));
     } else {
-      Object.keys(parameter).forEach((currentKey) => setFlattenedQueryParams(urlSearchParams, parameter[currentKey], `${key}${key !== '' ? '.' : ''}${currentKey}`));
+      Object.keys(parameter).forEach(currentKey => setFlattenedQueryParams(urlSearchParams, parameter[currentKey], `${key}${key !== '' ? '.' : ''}${currentKey}`));
     }
   } else {
     if (urlSearchParams.has(key)) {
@@ -130,7 +130,7 @@ export const createRequestFunction = function (axiosArgs: RequestArgs, globalAxi
   return <T = unknown, R = AxiosResponse<T>>(axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
     const axiosRequestArgs = {
       ...axiosArgs.options,
-      url: (axios.defaults.baseURL ? '' : configuration?.basePath ?? basePath) + axiosArgs.url
+      url: (axios.defaults.baseURL ? '' : configuration?.basePath ?? basePath) + axiosArgs.url,
     };
     return axios.request<T, R>(axiosRequestArgs);
   };
