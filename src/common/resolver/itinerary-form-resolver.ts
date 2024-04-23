@@ -1,15 +1,15 @@
-import { People } from '@mui/icons-material';
-import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import z from 'zod';
+import { numberResolver } from './utils';
 
 const itineraryValidator = z.object({
   from: z.string(),
   to: z.string(),
-  people: z.number().min(1),
-  nights: z.number().min(0),
+  people: numberResolver(),
+  nights: numberResolver(),
   vehicle: z.string(),
-  fuel: z.number(),
-  hotel: z.string(),
+  fuel: z.string(),
+  accommodation: z.string(),
 });
 
 export const itineraryResolver = zodResolver(itineraryValidator);

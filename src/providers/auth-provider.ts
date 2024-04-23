@@ -11,15 +11,23 @@ export const authProvider: AuthProvider & {
 } = {
   async check() {
     const token = getCached.token();
-    if (token) {
+    if (!token) {
+      return {
+        authenticated: false,
+        redirectTo: '/login',
+      };
+    }
+    try {
+      this.getIdentity && (await this.getIdentity({}));
       return {
         authenticated: true,
       };
+    } catch {
+      return {
+        authenticated: false,
+        redirectTo: '/login',
+      };
     }
-    return {
-      authenticated: false,
-      redirectTo: '/login',
-    };
   },
   async login({ email, password }) {
     try {

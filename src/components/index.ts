@@ -1,4 +1,5 @@
 export * from './GoogleMapsAutocomplete';
+export * from './RHFInput';
 export * from './card';
 export * from './category';
 export * from './courier';

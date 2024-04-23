@@ -1,7 +1,6 @@
-import { useList, useNavigation } from '@refinedev/core';
+import { useNavigation } from '@refinedev/core';
 
-import { GoogleMap, MapMarker } from '../../../components';
-import { IOrder } from '../../../interfaces';
+import { GoogleMap } from '../../../components';
 import { useGetGeoLocation } from '../../../hooks';
 
 export const DashboardMap: React.FC = () => {
