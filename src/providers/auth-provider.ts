@@ -1,6 +1,6 @@
 import { AuthProvider } from '@refinedev/core';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
-import { cache, getCached } from '../utils';
+import { cache, clearCached, getCached } from '../utils';
 import { securityApi, userApi } from './api';
 import { auth } from './firebase-conf';
 import { Configuration } from './gen';
@@ -43,6 +43,8 @@ export const authProvider: AuthProvider & {
     }
   },
   async logout() {
+    clearCached.token();
+    clearCached.user();
     signOut(auth);
     return {
       success: true,
