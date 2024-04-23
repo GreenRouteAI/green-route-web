@@ -23,7 +23,7 @@ export const DashboardWeather: FC<DashboardWeatherProps> = ({ destination, origi
   return (
     <Stack flexWrap='wrap' flexDirection='row' my={3} justifyContent='space-evenly' gap={3}>
       {data?.destination?.forecast?.map((e, k) => (
-        <Card title='Today' elevation={0} sx={{ minWidth: '17rem', flexGrow: 1, borderRadius: '1rem', height: '208px' }}>
+        <Card key={k} title='Today' elevation={0} sx={{ minWidth: '17rem', flexGrow: 1, borderRadius: '1rem', height: '208px' }}>
           <CardHeader title={e.day?.condition?.text}></CardHeader>
           <CardContent sx={{ width: '100%', height: '100%', p: 2, position: 'relative' }}>
             <img

@@ -1,15 +1,12 @@
 import { Autocomplete, Button, Card, CardContent, CardHeader, Stack, TextField } from '@mui/material';
 import React from 'react';
-import usePlacesService from 'react-google-autocomplete/lib/usePlacesAutocompleteService';
-import { RefineListView } from '../../components';
+import { GoogleMapsAutocomplete, RefineListView } from '../../components';
 import { DashboardMap } from '../../components/dashboard';
 import { DashboardWeather } from './Weather';
+import { FormProvider, useForm } from 'react-hook-form';
 
 export const DashboardPage: React.FC = () => {
-  const { placePredictions, getPlacePredictions, isPlacePredictionsLoading } = usePlacesService({
-    apiKey: import.meta.env.VITE_MAPS_API_KEY,
-    debounce: 200,
-  });
+  const form = useForm();
 
   return (
     <RefineListView>
@@ -19,25 +16,20 @@ export const DashboardPage: React.FC = () => {
           <CardHeader title='Itinerary' />
           <CardContent sx={{ height: '424px' }}>
             <form>
-              <Stack gap={1}>
-                <Autocomplete
-                  disablePortal
-                  options={placePredictions}
-                  size='small'
-                  loading={isPlacePredictionsLoading}
-                  renderInput={params => <TextField {...params} onChange={e => getPlacePredictions({ input: e.target.value })} label='Movie' />}
-                />
-                <TextField size='small' label='From' />
-                <TextField size='small' label='To' />
-                <TextField size='small' label='People' />
-                <TextField size='small' label='Nights' />
-                <TextField size='small' label='Vehicle' />
-                <TextField size='small' label='Fuel' />
-                <TextField size='small' label='Hotel' />
-                <Button type='submit' sx={{ mt: 3 }}>
-                  Start
-                </Button>
-              </Stack>
+              <FormProvider {...form}>
+                <Stack gap={1}>
+                  <GoogleMapsAutocomplete onChange={() => {}} label='From' />
+                  <GoogleMapsAutocomplete onChange={() => {}} label='To' />
+                  <TextField size='small' label='People' />
+                  <TextField size='small' label='Nights' />
+                  <TextField size='small' label='Vehicle' />
+                  <TextField size='small' label='Fuel' />
+                  <TextField size='small' label='Hotel' />
+                  <Button type='submit' sx={{ mt: 3 }}>
+                    Start
+                  </Button>
+                </Stack>
+              </FormProvider>
             </form>
           </CardContent>
         </Card>
