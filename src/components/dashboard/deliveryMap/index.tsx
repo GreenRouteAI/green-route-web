@@ -3,7 +3,7 @@ import { useNavigation } from '@refinedev/core';
 import { GoogleMap } from '../../../components';
 import { useGetGeoLocation } from '../../../hooks';
 
-export const DashboardMap: React.FC = () => {
+export const DashboardMap: React.FC<{ directionRenderer?: google.maps.DirectionsRenderer }> = ({ directionRenderer }) => {
   const { latitude, longitude } = useGetGeoLocation();
 
   const defaultProps = {
@@ -16,5 +16,5 @@ export const DashboardMap: React.FC = () => {
 
   const { show } = useNavigation();
 
-  return <GoogleMap mapProps={{ ...defaultProps }}></GoogleMap>;
+  return <GoogleMap mapProps={{ ...defaultProps }} directionRenderer={directionRenderer}></GoogleMap>;
 };

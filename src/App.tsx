@@ -42,7 +42,7 @@ const App: React.FC = () => {
               resources={appResources}>
               <AppRoute />
               <UnsavedChangesNotifier />
-              <DocumentTitleHandler />
+            <DocumentTitleHandler />
             </Refine>
           </RefineSnackbarProvider>
         </ColorModeContextProvider>

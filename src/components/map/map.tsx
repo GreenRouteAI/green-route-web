@@ -7,7 +7,16 @@ interface MapProps extends Exclude<google.maps.MapOptions, 'center'> {
   onDragStart?: (event: google.maps.FeatureMouseEvent) => void;
 }
 
-const MapComponent: FC<PropsWithChildren<MapProps>> = ({ children, center, zoom = 12, onDragStart, mapId, setMap: setMapFromProps, ...options }) => {
+const MapComponent: FC<PropsWithChildren<MapProps> & { directionRenderer?: google.maps.DirectionsRenderer }> = ({
+  children,
+  center,
+  zoom = 12,
+  onDragStart,
+  directionRenderer,
+  mapId,
+  setMap: setMapFromProps,
+  ...options
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
@@ -40,6 +49,13 @@ const MapComponent: FC<PropsWithChildren<MapProps>> = ({ children, center, zoom 
     }
   }, [map, mapId, setMapFromProps]);
 
+  useEffect(() => {
+    console.log(directionRenderer);
+    if (directionRenderer && map) {
+      directionRenderer.setMap(map);
+    }
+  }, [directionRenderer, map]);
+
   return (
     <>
       <div ref={ref} style={{ flexGrow: '1', height: '100%' }} />
@@ -57,7 +73,7 @@ type MapWrapperProps = {
   mapProps?: MapProps;
 };
 
-const MapWrapper: FC<PropsWithChildren<MapWrapperProps>> = ({ children, mapProps }) => {
+const MapWrapper: FC<PropsWithChildren<MapWrapperProps> & { directionRenderer?: google.maps.DirectionsRenderer }> = ({ children, mapProps, directionRenderer }) => {
   return (
     <Wrapper
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -65,7 +81,9 @@ const MapWrapper: FC<PropsWithChildren<MapWrapperProps>> = ({ children, mapProps
       version='beta'
       libraries={['marker']}
       apiKey={import.meta.env.VITE_MAPS_API_KEY}>
-      <MapComponent {...mapProps}>{children}</MapComponent>
+      <MapComponent {...mapProps} directionRenderer={directionRenderer}>
+        {children}
+      </MapComponent>
     </Wrapper>
   );
 };

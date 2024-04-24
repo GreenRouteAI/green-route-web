@@ -30,32 +30,32 @@ const accommodation = ['HOTEL', 'HOSTEL', 'TENT', 'APARTMENT', 'ROOM', 'RENTED_A
 const fuel = ['BIO_DIESEL', 'DIESEL', 'ETHANOL', 'GASOLINE', 'ELECTRICITY', 'NATURAL_GAS', 'BIO_BAS', 'FOSSIL_GAS'];
 
 export const ItineraryCard: FC<ItineraryCardProps> = ({ onSubmit }) => {
-  const { register } = useFormContext();
+  const { setValue } = useFormContext();
   return (
     <Card sx={{ minWidth: '20rem', flexGrow: 1 }}>
       <CardHeader title='Itinerary' />
       <CardContent>
         <form onSubmit={onSubmit}>
           <Stack gap={1}>
-            <GoogleMapsAutocomplete onChange={value => register('from').onChange({ target: { value } })} label='From' />
-            <GoogleMapsAutocomplete onChange={value => register('to').onChange({ target: { value } })} label='To' />
+            <GoogleMapsAutocomplete onChange={value => setValue('from', value)} label='From' />
+            <GoogleMapsAutocomplete onChange={value => setValue('to', value)} label='To' />
             <RHFInput name='people' label='People' />
             <RHFInput name='nights' label='Nights' />
-            <RHFInput name='vehicle' label='Vehicle' select>
+            <RHFInput name='vehicle.type' label='Vehicle' select>
               {vehicle.map(value => (
                 <MenuItem key={value} value={value}>
                   {value}
                 </MenuItem>
               ))}
             </RHFInput>
-            <RHFInput name='fuel' label='Fuel' select>
+            <RHFInput name='vehicle.fuel' label='Fuel' select>
               {fuel.map(value => (
                 <MenuItem value={value} key={value}>
                   {value}
                 </MenuItem>
               ))}
             </RHFInput>
-            <RHFInput name='accommodation' label='Accommodation' select>
+            <RHFInput name='accommodation_type' label='Accommodation' select>
               {accommodation.map(value => (
                 <MenuItem value={value} key={value}>
                   {value}
