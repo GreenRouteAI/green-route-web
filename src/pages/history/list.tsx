@@ -3,17 +3,21 @@ import Typography from '@mui/material/Typography';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { HttpError, useGo, useNavigation, useTranslate } from '@refinedev/core';
 import { useDataGrid } from '@refinedev/mui';
-import { PropsWithChildren, useMemo } from 'react';
+import { PropsWithChildren, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RefineListView } from '../../components';
 import { IUserFilterVariables } from '../../interfaces';
 import { Itinerary } from '../../providers';
+import { IconButton } from '@mui/material';
+import { VisibilityOutlined } from '@mui/icons-material';
+import { HistoryDrawerShow } from './show';
 
 export const HistoryList = ({ children }: PropsWithChildren) => {
   const go = useGo();
   const { pathname } = useLocation();
   const { showUrl } = useNavigation();
   const t = useTranslate();
+  const [show, setShow] = useState<{ itinerary: Itinerary | null; drawer: boolean }>({ drawer: false, itinerary: null });
 
   const { dataGridProps } = useDataGrid<Itinerary, HttpError, IUserFilterVariables>({
     initialPageSize: 10,
@@ -63,12 +67,35 @@ export const HistoryList = ({ children }: PropsWithChildren) => {
         flex: 1,
         renderCell: ({ row }) => <Typography>{row.accommodation?.co2e_pp}</Typography>,
       },
+      {
+        field: 'actions',
+        headerName: t('table.actions'),
+        width: 80,
+        align: 'center',
+        headerAlign: 'center',
+        renderCell: function render({ row }) {
+          return (
+            <IconButton
+              sx={{
+                color: 'text.secondary',
+              }}
+              onClick={() => setShow({ drawer: true, itinerary: row })}>
+              <VisibilityOutlined />
+            </IconButton>
+          );
+        },
+      },
     ],
     [t, go, pathname, showUrl]
   );
 
+  const handleClose = () => {
+    setShow({ drawer: false, itinerary: null });
+  };
+
   return (
     <>
+      <HistoryDrawerShow close={handleClose} isOpen={show.drawer} itinerary={show.itinerary} />
       <RefineListView breadcrumb={false}>
         <Paper>
           <DataGrid {...dataGridProps} columns={columns} autoHeight pageSizeOptions={[10, 20, 50, 100]} />
