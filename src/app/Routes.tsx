@@ -4,7 +4,7 @@ import { CatchAllNavigate, NavigateToResource } from '@refinedev/react-router-v6
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { CategoryList } from '../pages/categories';
 import { CourierList, CourierCreate, CourierEdit } from '../pages/couriers';
-import { CustomerList, CustomerShow } from '../pages/customers';
+import { HistoryList, CustomerShow } from '../pages/history';
 import { DashboardPage } from '../pages/dashboard';
 import { AuthPage } from '../pages/auth';
 import { authenticatedContainer } from './styles';
@@ -26,11 +26,11 @@ export const AppRoute = () => {
         }>
         <Route index element={<DashboardPage />} />
         <Route
-          path='/customers'
+          path='/history'
           element={
-            <CustomerList>
+            <HistoryList>
               <Outlet />
-            </CustomerList>
+            </HistoryList>
           }>
           <Route path=':id' element={<CustomerShow />} />
         </Route>

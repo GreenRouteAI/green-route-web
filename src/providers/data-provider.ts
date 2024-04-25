@@ -12,10 +12,21 @@ import {
   UpdateParams,
   UpdateResponse,
 } from '@refinedev/core';
+import { userProvider } from './user-provider';
 
 export const dataProvider: DataProvider = {
-  getList: function <TData extends BaseRecord = BaseRecord>(params: GetListParams): Promise<GetListResponse<TData>> {
-    throw new Error('Function not implemented.');
+  getList: async function <TData extends BaseRecord = BaseRecord>({ resource }: GetListParams): Promise<GetListResponse<TData>> {
+    const res = await userProvider.getActivities();
+    switch (resource) {
+      case 'activities':
+        return {
+          data: res as any,
+          total: res.length,
+        };
+
+      default:
+        throw new Error('Function not implemented.');
+    }
   },
   getOne: function <TData extends BaseRecord = BaseRecord>(params: GetOneParams): Promise<GetOneResponse<TData>> {
     throw new Error('Function not implemented.');
