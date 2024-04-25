@@ -48,7 +48,7 @@ export const ItineraryCard: FC<ItineraryCardProps> = ({ onSubmit }) => {
                 </MenuItem>
               ))}
             </RHFInput>
-            <RHFInput name='vehicle.fuel' label='Fuel' select>
+            <RHFInput name='vehicle.fuel.type' label='Fuel' select>
               {fuel.map(value => (
                 <MenuItem value={value} key={value}>
                   {value}

@@ -55,6 +55,7 @@
     "react-hook-form": "^7.30.0",
     "react-i18next": "^11.8.11",
     "react-input-mask": "^2.0.4",
+    "react-markdown": "^9.0.1",
     "react-router-dom": "^6.8.1",
     "recharts": "^2.1.9",
     "usehooks-ts": "^2.14.0",
