@@ -27,10 +27,12 @@ export const DashboardWeather: FC<DashboardWeatherProps> = () => {
 
   return (
     <>
-      <Stack flexDirection="row" justifyContent="space-between">
-        <Typography>{isOrigin ? 'Origin' : 'Destination'}</Typography>
-        <Switch onChange={(_event, isChecked) => setIsOrigin(isChecked)} value={isOrigin} />
-      </Stack>
+      {currentOrigin !== currentDestination && (
+        <Stack flexDirection='row' justifyContent='space-between'>
+          <Typography>{isOrigin ? 'Origin' : 'Destination'}</Typography>
+          <Switch onChange={(_event, isChecked) => setIsOrigin(isChecked)} value={isOrigin} />
+        </Stack>
+      )}
       <Stack flexWrap='wrap' flexDirection='row' my={3} justifyContent='space-evenly' gap={3}>
         {toShow?.forecast?.map((e, k) => (
           <Card key={k} title='Today' elevation={0} sx={{ minWidth: '17rem', flexGrow: 1, borderRadius: '1rem', height: '158px' }}>

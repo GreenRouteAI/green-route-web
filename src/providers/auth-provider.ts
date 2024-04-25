@@ -4,6 +4,7 @@ import { cache, clearCached, getCached } from '../utils';
 import { securityApi, userApi } from './api';
 import { auth } from './firebase-conf';
 import { Configuration } from './gen';
+import { AxiosError } from 'axios';
 
 export const authProvider: AuthProvider & {
   getConfig: () => Configuration;
@@ -66,7 +67,7 @@ export const authProvider: AuthProvider & {
     return conf;
   },
   async onError(error) {
-    console.error(error);
+    console.log((error as AxiosError).code);
     return { error };
   },
   async loginGoogle() {
@@ -99,13 +100,13 @@ export const authProvider: AuthProvider & {
   async getIdentity(params) {
     try {
       const { id } = getCached.user();
-      await userApi().getUserById({ id });
-      return {
-        success: true,
-      };
+      const { data: user } = await userApi().getUserById({ id });
+      return user;
     } catch {
+      localStorage.clear();
       return {
         success: false,
+        redirect: '/login',
       };
     }
   },

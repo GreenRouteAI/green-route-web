@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-
-import { FinefoodsLogoIcon, FinefoodsLogoText } from '../icons/finefoods-logo';
+import { Link } from 'react-router-dom';
 
 type TitleProps = {
   collapsed: boolean;
@@ -9,22 +8,11 @@ type TitleProps = {
 
 export const Title: React.FC<TitleProps> = ({ collapsed }) => {
   return (
-    <Link to='/'>
-      <Box
-        display='flex'
-        alignItems='center'
-        gap={'12px'}
-        sx={{
-          color: 'text.primary',
-        }}>
-        {collapsed ? (
-          <FinefoodsLogoIcon />
-        ) : (
-          <>
-            <FinefoodsLogoIcon />
-            <FinefoodsLogoText />
-          </>
-        )}
+    <Link to='/' style={{ textDecoration: 'none' }}>
+      <Box display='flex' alignItems='center' gap={'12px'}>
+        <Typography color='#00accb' fontSize='1.2rem' fontFamily='sans-serif' fontWeight='bold'>
+          {!collapsed ? 'Green Route' : 'G.R'}
+        </Typography>
       </Box>
     </Link>
   );

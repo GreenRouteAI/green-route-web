@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import { Authenticated, ErrorComponent } from '@refinedev/core';
-import { ThemedLayoutV2, Header, Title } from '@refinedev/mui';
 import { CatchAllNavigate, NavigateToResource } from '@refinedev/react-router-v6';
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { CategoryList } from '../pages/categories';
@@ -9,6 +8,8 @@ import { CustomerList, CustomerShow } from '../pages/customers';
 import { DashboardPage } from '../pages/dashboard';
 import { AuthPage } from '../pages/auth';
 import { authenticatedContainer } from './styles';
+import { ThemedLayoutV2 } from '@refinedev/mui';
+import { Header, Title } from '../components';
 
 export const AppRoute = () => {
   return (

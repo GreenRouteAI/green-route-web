@@ -1,134 +1,30 @@
-import { useState, useEffect, useContext, ReactNode } from 'react';
-import { useList, useTranslate, useGetIdentity, useGetLocale, useSetLocale } from '@refinedev/core';
-import { RefineThemedLayoutV2HeaderProps, HamburgerMenu } from '@refinedev/mui';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 import AppBar from '@mui/material/AppBar';
-import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
 import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import Toolbar from '@mui/material/Toolbar';
 import Box from '@mui/material/Box';
-import Autocomplete from '@mui/material/Autocomplete';
-import Stack from '@mui/material/Stack';
-import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import SearchOutlined from '@mui/icons-material/SearchOutlined';
-import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import i18n from '../../i18n';
-import { IOrder, IStore, ICourier, IIdentity } from '../../interfaces';
+import Stack from '@mui/material/Stack';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { useGetIdentity, useGetLocale, useSetLocale, useTranslate } from '@refinedev/core';
+import { HamburgerMenu, RefineThemedLayoutV2HeaderProps } from '@refinedev/mui';
+import { useContext } from 'react';
 import { ColorModeContext } from '../../contexts';
-
-interface IOptions {
-  label: string;
-  avatar?: ReactNode;
-  link: string;
-  category: string;
-}
+import i18n from '../../i18n';
+import { User, fileProvider } from '../../providers';
 
 export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
-  const [value, setValue] = useState('');
-  const [options, setOptions] = useState<IOptions[]>([]);
-
   const { mode, setMode } = useContext(ColorModeContext);
 
   const changeLanguage = useSetLocale();
   const locale = useGetLocale();
   const currentLocale = locale();
-  const { data: user } = useGetIdentity<IIdentity | null>();
+  const { data: user } = useGetIdentity<User>();
 
   const t = useTranslate();
-
-  const { refetch: refetchOrders } = useList<IOrder>({
-    resource: 'orders',
-    config: {
-      filters: [{ field: 'q', operator: 'contains', value }],
-    },
-    queryOptions: {
-      enabled: false,
-      onSuccess: data => {
-        const orderOptionGroup: IOptions[] = data.data.map(item => {
-          return {
-            label: `${item.store.title} / #${item.orderNumber}`,
-            link: `/orders/show/${item.id}`,
-            category: t('orders.orders'),
-            avatar: (
-              <Avatar
-                variant='rounded'
-                sx={{
-                  width: '32px',
-                  height: '32px',
-                }}
-                src={item.products?.[0]?.images?.[0]?.url}
-              />
-            ),
-          };
-        });
-        if (orderOptionGroup.length > 0) {
-          setOptions(prevOptions => [...prevOptions, ...orderOptionGroup]);
-        }
-      },
-    },
-  });
-
-  const { refetch: refetchStores } = useList<IStore>({
-    resource: 'stores',
-    config: {
-      filters: [{ field: 'q', operator: 'contains', value }],
-    },
-    queryOptions: {
-      enabled: false,
-      onSuccess: data => {
-        const storeOptionGroup = data.data.map(item => {
-          return {
-            label: `${item.title} - ${item.address.text}`,
-            link: `/stores/edit/${item.id}`,
-            category: t('stores.stores'),
-          };
-        });
-        setOptions(prevOptions => [...prevOptions, ...storeOptionGroup]);
-      },
-    },
-  });
-
-  const { refetch: refetchCouriers } = useList<ICourier>({
-    resource: 'couriers',
-    config: {
-      filters: [{ field: 'q', operator: 'contains', value }],
-    },
-    queryOptions: {
-      enabled: false,
-      onSuccess: data => {
-        const courierOptionGroup = data.data.map(item => {
-          return {
-            label: `${item.name}`,
-            avatar: (
-              <Avatar
-                sx={{
-                  width: '32px',
-                  height: '32px',
-                }}
-                src={item.avatar?.[0]?.url}
-              />
-            ),
-            link: `/couriers/edit/${item.id}`,
-            category: t('couriers.couriers'),
-          };
-        });
-        setOptions(prevOptions => [...prevOptions, ...courierOptionGroup]);
-      },
-    },
-  });
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: should run when `value` changed
-  useEffect(() => {
-    setOptions([]);
-    refetchOrders();
-    refetchCouriers();
-    refetchStores();
-  }, [value, refetchOrders, refetchCouriers, refetchStores]);
 
   return (
     <AppBar
@@ -166,96 +62,15 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
           }}>
           <HamburgerMenu />
         </Box>
-
         <Stack
           direction='row'
           width='100%'
-          justifyContent='space-between'
+          justifyContent='flex-end'
           alignItems='center'
           gap={{
             xs: '8px',
             sm: '24px',
           }}>
-          <Stack direction='row' flex={1}>
-            <Autocomplete
-              sx={{
-                maxWidth: 550,
-              }}
-              id='search-autocomplete'
-              options={options}
-              filterOptions={x => x}
-              disableClearable
-              freeSolo
-              fullWidth
-              size='small'
-              onInputChange={(event, value) => {
-                if (event?.type === 'change') {
-                  setValue(value);
-                }
-              }}
-              groupBy={option => option.category}
-              renderOption={(props, option: IOptions) => {
-                return (
-                  <Link href={option.link} underline='none'>
-                    <Box
-                      {...props}
-                      component='li'
-                      sx={{
-                        display: 'flex',
-                        padding: '10px',
-                        alignItems: 'center',
-                        gap: '10px',
-                      }}>
-                      {option?.avatar && option.avatar}
-                      <Typography
-                        sx={{
-                          fontSize: {
-                            md: '14px',
-                            lg: '16px',
-                          },
-                        }}>
-                        {option.label}
-                      </Typography>
-                    </Box>
-                  </Link>
-                );
-              }}
-              renderInput={params => {
-                return (
-                  <Box
-                    position='relative'
-                    sx={{
-                      '& .MuiFormLabel-root': {
-                        paddingRight: '24px',
-                      },
-                      display: {
-                        xs: 'none',
-                        sm: 'block',
-                      },
-                    }}>
-                    <TextField
-                      {...params}
-                      label={t('search.placeholder')}
-                      InputProps={{
-                        ...params.InputProps,
-                      }}
-                    />
-                    <IconButton
-                      sx={{
-                        position: 'absolute',
-                        right: 0,
-                        top: 0,
-                        '&:hover': {
-                          backgroundColor: 'transparent',
-                        },
-                      }}>
-                      <SearchOutlined />
-                    </IconButton>
-                  </Box>
-                );
-              }}
-            />
-          </Stack>
           <Stack
             direction='row'
             alignItems='center'
@@ -314,15 +129,26 @@ export const Header: React.FC<RefineThemedLayoutV2HeaderProps> = () => {
               }}
               alignItems='center'
               justifyContent='center'>
-              <Typography
-                fontSize={{
-                  xs: '12px',
-                  sm: '14px',
-                }}
-                variant='subtitle2'>
-                {user?.name}
-              </Typography>
-              <Avatar src={user?.avatar} alt={user?.name} />
+              <Stack>
+                <Typography
+                  fontSize={{
+                    xs: '12px',
+                    sm: '14px',
+                  }}
+                  variant='subtitle1'>
+                  {user?.first_name}
+                </Typography>
+                <Typography
+                  fontSize={{
+                    xs: '12px',
+                    sm: '14px',
+                  }}
+                  variant='subtitle2'
+                  color='text.secondary'>
+                  {user?.last_name}
+                </Typography>
+              </Stack>
+              <Avatar src={fileProvider.getUrl(user?.photo_id || '')} alt={user?.first_name} />
             </Stack>
           </Stack>
         </Stack>
