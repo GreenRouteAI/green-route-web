@@ -55,21 +55,21 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <RefineListView>
-      <DashboardWeather />
-      <Stack flexDirection='row' flexWrap='wrap' gap={3} mb={3}>
-        <FormProvider {...form}>
+      <FormProvider {...form}>
+        <DashboardWeather />
+        <Stack flexDirection='row' flexWrap='wrap' gap={3} mb={3}>
           <ItineraryCard onSubmit={handleSubmit} />
-        </FormProvider>
-        <Card sx={{ minWidth: '30rem', flexGrow: 3, height: '500px' }}>
-          <GoogleMap center={{ lat: latitude, lng: longitude }} zoom={15} mapContainerStyle={{ width: '100%', height: '100%' }} onLoad={load}></GoogleMap>
-        </Card>
-      </Stack>
+          <Card sx={{ minWidth: '30rem', flexGrow: 3, height: '500px' }}>
+            <GoogleMap center={{ lat: latitude, lng: longitude }} zoom={15} mapContainerStyle={{ width: '100%', height: '100%' }} onLoad={load}></GoogleMap>
+          </Card>
+        </Stack>
+      </FormProvider>
       <Stack>
         {(aiRes || isLoadingAi) && (
           <Card>
             <CardHeader title={aiRes?.title} />
             <CardContent>
-              <Stack flexDirection="row" width="100%" justifyContent="space-around">
+              <Stack flexDirection='row' width='100%' justifyContent='space-around'>
                 <Co2State co2={aiRes?.accommodation} isLoading={isLoadingAi} title='Accommodation' />
                 <Co2State co2={aiRes?.transport} isLoading={isLoadingAi} title='Transport' />
               </Stack>
