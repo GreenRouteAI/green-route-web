@@ -1,5 +1,7 @@
 import { AuthProps, AuthPage as MUIAuthPage } from '@refinedev/mui';
 import * as React from 'react';
+import LOGO from "../../assets/logo.png";
+
 
 const authWrapperProps = {
   style: {
@@ -10,7 +12,10 @@ const authWrapperProps = {
 
 const renderAuthContent = (content: React.ReactNode) => {
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
+      <img src={LOGO} alt='logo' style={{ width: "200px" }}/>
+      <p style={{ color: "white" }}>Explore eco-friendly travel options, reduce your carbon footprint, and discover a new way to travel sustainably, one route at a time.</p>
+      <p style={{ color: "green"}}>Try for free!</p>
       {content}
     </div>
   );
