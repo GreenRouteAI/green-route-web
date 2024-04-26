@@ -4,7 +4,7 @@ import { CatchAllNavigate, NavigateToResource } from '@refinedev/react-router-v6
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { CategoryList } from '../pages/categories';
 import { CourierList, CourierCreate, CourierEdit } from '../pages/couriers';
-import { HistoryList, CustomerShow } from '../pages/history';
+import { HistoryList } from '../pages/history';
 import { DashboardPage } from '../pages/dashboard';
 import { AuthPage } from '../pages/auth';
 import { authenticatedContainer } from './styles';
@@ -32,7 +32,6 @@ export const AppRoute = () => {
               <Outlet />
             </HistoryList>
           }>
-          <Route path=':id' element={<CustomerShow />} />
         </Route>
 
         <Route path='/categories' element={<CategoryList />} />
