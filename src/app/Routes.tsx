@@ -6,7 +6,6 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import { Header, Title } from '../components';
 import { AuthPage } from '../pages/auth';
 import { Radio } from '../pages/radio';
-import { CourierCreate, CourierEdit, CourierList } from '../pages/couriers';
 import { DashboardPage } from '../pages/dashboard';
 import { HistoryList } from '../pages/history';
 import { authenticatedContainer } from './styles';
@@ -34,20 +33,6 @@ export const AppRoute = () => {
           }></Route>
 
         <Route path='/radio' element={<Radio />} />
-
-        <Route path='/couriers'>
-          <Route
-            path=''
-            element={
-              <CourierList>
-                <Outlet />
-              </CourierList>
-            }>
-            <Route path='new' element={<CourierCreate />} />
-          </Route>
-
-          <Route path=':id/edit' element={<CourierEdit />} />
-        </Route>
       </Route>
 
       <Route
