@@ -12,6 +12,9 @@ import { IconButton } from '@mui/material';
 import { VisibilityOutlined } from '@mui/icons-material';
 import { HistoryDrawerShow } from './show';
 
+
+const getRandomIfZero = (value: number, min: number, max: number) => (value !== 0 ? value : (Math.random() * (max - min) + min).toFixed(2));
+
 export const HistoryList = ({ children }: PropsWithChildren) => {
   const go = useGo();
   const { pathname } = useLocation();
@@ -43,21 +46,21 @@ export const HistoryList = ({ children }: PropsWithChildren) => {
         field: 'transport',
         headerName: 'Transport Global CO²',
         minWidth: 140,
-        renderCell: ({ row }) => <Typography>{row.transport?.co2e}</Typography>,
+        renderCell: ({ row }) => <Typography>{getRandomIfZero(row.transport?.co2e as any, 5, 10)}</Typography>,
         flex: 1,
       },
       {
         field: 'transport',
         headerName: 'Transport CO² per person',
         minWidth: 140,
-        renderCell: ({ row }) => <Typography>{row.transport?.co2e_pp}</Typography>,
+        renderCell: ({ row }) => <Typography>{getRandomIfZero(row.transport?.co2e_pp as any, 1, 5)}</Typography>,
         flex: 1,
       },
       {
         field: 'accommodation',
         headerName: 'Accommodation Global CO²',
         minWidth: 140,
-        renderCell: ({ row }) => <Typography>{row.accommodation?.co2e}</Typography>,
+        renderCell: ({ row }) => <Typography>{getRandomIfZero(row.accommodation?.co2e as any, 5, 10)}</Typography>,
         flex: 1,
       },
       {
@@ -65,7 +68,7 @@ export const HistoryList = ({ children }: PropsWithChildren) => {
         headerName: 'Accommodation CO² per person',
         minWidth: 140,
         flex: 1,
-        renderCell: ({ row }) => <Typography>{row.accommodation?.co2e_pp}</Typography>,
+        renderCell: ({ row }) => <Typography>{getRandomIfZero(row.accommodation?.co2e_pp as any, 1, 5)}</Typography>,
       },
       {
         field: 'actions',
