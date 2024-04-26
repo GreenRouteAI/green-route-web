@@ -5,7 +5,7 @@ import { CatchAllNavigate, NavigateToResource } from '@refinedev/react-router-v6
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { Header, Title } from '../components';
 import { AuthPage } from '../pages/auth';
-import { CategoryList } from '../pages/categories';
+import { Radio } from '../pages/radio';
 import { CourierCreate, CourierEdit, CourierList } from '../pages/couriers';
 import { DashboardPage } from '../pages/dashboard';
 import { HistoryList } from '../pages/history';
@@ -33,7 +33,7 @@ export const AppRoute = () => {
             </HistoryList>
           }></Route>
 
-        <Route path='/categories' element={<CategoryList />} />
+        <Route path='/radio' element={<Radio />} />
 
         <Route path='/couriers'>
           <Route
