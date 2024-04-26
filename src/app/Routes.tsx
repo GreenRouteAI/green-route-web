@@ -1,15 +1,15 @@
 import { Box } from '@mui/material';
 import { Authenticated, ErrorComponent } from '@refinedev/core';
-import { CatchAllNavigate, NavigateToResource } from '@refinedev/react-router-v6';
-import { Routes, Route, Outlet } from 'react-router-dom';
-import { CategoryList } from '../pages/categories';
-import { CourierList, CourierCreate, CourierEdit } from '../pages/couriers';
-import { HistoryList } from '../pages/history';
-import { DashboardPage } from '../pages/dashboard';
-import { AuthPage } from '../pages/auth';
-import { authenticatedContainer } from './styles';
 import { ThemedLayoutV2 } from '@refinedev/mui';
+import { CatchAllNavigate, NavigateToResource } from '@refinedev/react-router-v6';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { Header, Title } from '../components';
+import { AuthPage } from '../pages/auth';
+import { CategoryList } from '../pages/categories';
+import { CourierCreate, CourierEdit, CourierList } from '../pages/couriers';
+import { DashboardPage } from '../pages/dashboard';
+import { HistoryList } from '../pages/history';
+import { authenticatedContainer } from './styles';
 
 export const AppRoute = () => {
   return (
@@ -31,8 +31,7 @@ export const AppRoute = () => {
             <HistoryList>
               <Outlet />
             </HistoryList>
-          }>
-        </Route>
+          }></Route>
 
         <Route path='/categories' element={<CategoryList />} />
 
@@ -58,6 +57,7 @@ export const AppRoute = () => {
           </Authenticated>
         }>
         <Route path='/login' element={<AuthPage type='login' />} />
+        <Route path='/register' element={<AuthPage type='register' />} />
       </Route>
 
       <Route

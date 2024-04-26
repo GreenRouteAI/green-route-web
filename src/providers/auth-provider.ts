@@ -1,10 +1,11 @@
 import { AuthProvider } from '@refinedev/core';
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { cache, clearCached, getCached } from '../utils';
 import { securityApi, userApi } from './api';
 import { auth } from './firebase-conf';
 import { Configuration } from './gen';
 import { AxiosError } from 'axios';
+import { v4 } from 'uuid';
 
 export const authProvider: AuthProvider & {
   getConfig: () => Configuration;
@@ -27,6 +28,36 @@ export const authProvider: AuthProvider & {
       return {
         authenticated: false,
         redirectTo: '/login',
+      };
+    }
+  },
+  async register({ email, password }) {
+    try {
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      const token = await result?.user?.getIdToken();
+      const firebaseUser = result.user;
+      cache.token(token);
+      const { data: user } = await securityApi().signUp({
+        user: {
+          id: v4(),
+          authentication_id: firebaseUser.uid,
+          email: firebaseUser.email || '',
+          photo_id: firebaseUser.photoURL || '',
+          username: firebaseUser.displayName || '',
+        },
+      });
+      cache.user(user);
+      return {
+        success: true,
+        redirectTo: '/',
+      };
+    } catch (err) {
+      return {
+        success: false,
+        error: {
+          name: 'Sign up error',
+          message: (err as Error).message || 'Error',
+        },
       };
     }
   },
