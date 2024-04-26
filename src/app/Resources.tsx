@@ -1,4 +1,4 @@
-import { Dashboard as DashboardIcon, History as HistoryIcon, Radio as RadioIcon } from '@mui/icons-material';
+import { Dashboard as DashboardIcon, History as HistoryIcon, Radio as RadioIcon, StarOutline } from '@mui/icons-material';
 
 export const appResources = [
   {
@@ -23,6 +23,14 @@ export const appResources = [
     meta: {
       label: 'Travel History',
       icon: <HistoryIcon />,
+    },
+  },
+  {
+    name: 'plan',
+    list: '/plan',
+    meta: {
+      label: 'Upgrade Plan',
+      icon: <StarOutline />,
     },
   },
 ];

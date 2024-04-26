@@ -9,6 +9,7 @@ import { Radio } from '../pages/radio';
 import { DashboardPage } from '../pages/dashboard';
 import { HistoryList } from '../pages/history';
 import { authenticatedContainer } from './styles';
+import { Plan } from '../pages/plan';
 
 export const AppRoute = () => {
   return (
@@ -33,6 +34,7 @@ export const AppRoute = () => {
           }></Route>
 
         <Route path='/radio' element={<Radio />} />
+        <Route path='/plan' element={<Plan />} />
       </Route>
 
       <Route
