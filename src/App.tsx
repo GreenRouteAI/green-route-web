@@ -10,7 +10,6 @@ import { appResources, AppRoute } from './app';
 import { ColorModeContextProvider } from './contexts';
 import { authProvider, dataProvider } from './providers';
 
-
 const App: React.FC = () => {
   const { t, i18n } = useTranslation();
   const i18nProvider = {
