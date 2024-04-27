@@ -4,4 +4,3 @@ export * from './data-provider';
 export * from './file-provider';
 export * from './firebase-conf';
 export * from './gen';
-
