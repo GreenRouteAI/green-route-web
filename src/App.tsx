@@ -10,7 +10,6 @@ import { appResources, AppRoute } from './app';
 import { ColorModeContextProvider } from './contexts';
 import { authProvider, dataProvider } from './providers';
 
-const API_URL = 'https://api.finefoods.refine.dev';
 
 const App: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -42,7 +41,7 @@ const App: React.FC = () => {
               resources={appResources}>
               <AppRoute />
               <UnsavedChangesNotifier />
-            <DocumentTitleHandler />
+              <DocumentTitleHandler />
             </Refine>
           </RefineSnackbarProvider>
         </ColorModeContextProvider>

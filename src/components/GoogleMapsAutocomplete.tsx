@@ -126,7 +126,7 @@ export const GoogleMapsAutocomplete: FC<GoogleMapsAutocompleteProps> = ({ label,
       noOptionsText='No locations'
       onChange={handleChange}
       onInputChange={handleInputChange}
-      renderInput={params => <TextField  {...params} size='small' label={label} fullWidth />}
+      renderInput={params => <TextField {...params} size='small' label={label} fullWidth />}
       renderOption={GoogleMapsAutocompleteOption}
     />
   );

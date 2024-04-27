@@ -12,7 +12,6 @@ import { IconButton } from '@mui/material';
 import { VisibilityOutlined } from '@mui/icons-material';
 import { HistoryDrawerShow } from './show';
 
-
 const getRandomIfZero = (value: number, min: number, max: number) => (value !== 0 ? value : (Math.random() * (max - min) + min).toFixed(2));
 
 export const HistoryList = ({ children }: PropsWithChildren) => {
