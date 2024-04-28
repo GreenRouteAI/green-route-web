@@ -1,43 +1,68 @@
-<div align="center" style="margin: 30px;">
-<a href="https://refine.dev/">
-  <img alt="refine logo" src="https://refine.ams3.cdn.digitaloceanspaces.com/readme/refine-readme-banner.png">
-</a>
+# Green Route
 
-</br>
-</br>
+<img src="src/assets/banner.png" alt="banner"/>
 
-<div align="center">
-    <a href="https://refine.dev">Home Page</a> |
-    <a href="https://discord.gg/refine">Discord</a> |
-    <a href="https://refine.dev/examples/">Examples</a> |
-    <a href="https://refine.dev/blog/">Blog</a> |
-    <a href="https://refine.dev/docs/">Documentation</a>
-</div>
-</div>
+`GreenRoute` is a revolutionary application that leverages `Google's Generative AI` to provide eco-conscious travelers with sustainable and environmentally friendly travel options. By analyzing transportation and accommodation choices, GreenRoute aims to minimize carbon footprints while offering enriching travel experiences.
 
-</br>
-</br>
+<img style="width: 500px" src="src/assets/dashboard.png" alt="banner"/>
 
-<div align="center"><strong>Build your <a href="https://reactjs.org/">React</a>-based CRUD applications, without constraints.</strong><br>An open source, headless web application framework developed with flexibility in mind.
+## Features
+**Eco-friendly Route Planning**: Users can input their starting point, destination, and sustainability preferences. GreenRoute then generates eco-friendly routes and provides insightful descriptions on how to enjoy the journey sustainably.
 
-<br />
-<br />
+<img style="width: 500px" src="src/assets/direction.png" alt="itinerary">
 
-[![Discord](https://img.shields.io/discord/837692625737613362.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/refine)
-[![Twitter Follow](https://img.shields.io/twitter/follow/refine_dev?style=social)](https://twitter.com/refine_dev)
+<img style="width: 500px" src="src/assets/description.png" alt="itinerary"/>
 
-<a href="https://www.producthunt.com/posts/refine-3?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-refine&#0045;3" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=362220&theme=light&period=daily" alt="refine - 100&#0037;&#0032;open&#0032;source&#0032;React&#0032;framework&#0032;to&#0032;build&#0032;web&#0032;apps&#0032;3x&#0032;faster | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+**Environmental Impact Tracking**: Users can monitor their overall carbon footprint and visualize how their travel choices contribute to emissions, empowering them to make informed decisions.
 
-</div>
+<img style="width: 500px" src="src/assets/carbone.png" alt="itinerary"/>
 
-## Try this example on your local
+**Weather Forecast**: GreenRoute offers weather forecast for both the origin and destination, ensuring travelers are prepared for their journey.
 
-```bash
-npm create refine-app@latest -- --example finefoods-material-ui
-```
+<img style="width: 500px" src="src/assets/weather.png" alt="itinerary"/>
 
-## Try this example on CodeSandbox
+**History**: Users can view their past travel prompts, helping them track their sustainability progress and revisit memorable trips.
 
-<br/>
+<img style="width: 500px" src="src/assets/history.png" alt="banner"/>
 
-[![Open finefoods-material-ui example from refine](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/embed/github/refinedev/refine/tree/master/examples/finefoods-material-ui?view=preview&theme=dark&codemirror=1)
+<img style="width: 500px" src="src/assets/history-view.png" alt="banner"/>
+
+# Upcoming Features
+
+**Virtual Assistant**: Introducing a virtual guide feature to assist travelers during their journeys, providing information and recommendations.
+
+**Radio Stations Integration**: Users can enjoy music and stay informed while traveling by accessing integrated radio stations.
+
+<img style="width: 500px" src="src/assets/radio.png" alt="banner"/>
+
+**Business Plan**: A new business plan option will be available for users looking to upgrade their services at an affordable price.
+
+<img style="width: 500px" src="src/assets/plan.png" alt="banner"/>
+
+# Installation of this UI
+To run the Green Route web application locally using React with Vite, follow these steps:
+
+- ***Prerequisites***:
+    - Node.js installed (recommend using Node.js 14+).
+    - `npm` package manager installed (optional but recommended).
+- ***Install Dependencies:***:
+    - Install project dependencies
+    <pre>npm install</pre>
+- ***Set up environment variable:***:
+
+    Create `.env` file containg this following variables:
+    <pre>
+        VITE_MAPS_API_KEY=dummy
+        VITE_API_BASE_URL=dummy
+        VITE_FIREBASE_API_KEY=dummu
+        VITE_FIREBASE_AUTH_DOMAIN=dummy
+        VITE_FIREBASE_PROJECT_ID=dummy
+        VITE_FIREBASE_BUCKET=dummy
+        VITE_FIREBASE_MESSAGE_ID=dummy
+        VITE_FIREBASE_APP_ID=dummy
+        VITE_FIREBASE_MEASUREMENT_ID=dummy
+    </pre>
+- ***Run the Application***:
+
+    Start the Vite development server:
+    <pre>npm run dev</pre>
